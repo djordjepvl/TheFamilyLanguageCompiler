@@ -3,6 +3,8 @@ package application;
 import lexer.Lexer;
 import lexer.token.Token;
 import lexer.token.TokenFormatter;
+import parser.Parser;
+import parser.ProgramNode;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
