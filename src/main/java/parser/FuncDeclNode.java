@@ -3,9 +3,9 @@ package parser;
 import parser.Node;
 
 public class FuncDeclNode extends Node {
-    public final String retType;
     public final String name;
-    public FuncDeclNode(String retType, String name) { this.retType = retType; this.name = name; }
-    @Override public String toString() { return super.toString() + "(" + retType + " " + name + ")"; }
+    public final String returnKind; // "forgetAboutIt" ili konkretan tip
+    public FuncDeclNode(String returnKind, String name){ this.returnKind = returnKind; this.name = name; }
+    @Override public <R> R accept(Visitor<R> v) { return v.visitFunc(this); }
 }
 

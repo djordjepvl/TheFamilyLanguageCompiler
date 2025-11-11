@@ -76,6 +76,8 @@ public enum TokenType {
     NEWLINE,            // novi red (ako se tretira kao token)
     EOF,                // kraj fajla
 
+    COUNTIN,
+
     // Greške
     UNKNOWN             // nepoznat token (za leksičku grešku)
 }

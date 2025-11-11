@@ -37,7 +37,9 @@ public class Lexer {
 
             // Logičke vrednosti
             Map.entry("alive", TokenType.ALIVE),
-            Map.entry("whacked", TokenType.WHACKED)
+            Map.entry("whacked", TokenType.WHACKED),
+
+            Map.entry("countin", TokenType.COUNTIN)
     );
 
     public Lexer(String source) {

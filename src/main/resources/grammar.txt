@@ -1,0 +1,153 @@
+/* ===== Pomoćna pravila za nove redove i praznine ===== */
+
+NL0          = { NEWLINE } ;               // nula ili više novih redova
+NL1          = NEWLINE { NEWLINE } ;       // jedan ili više novih redova
+
+/* ===== Program ===== */
+
+program      = NL0 main_def NL0 { func_def NL0 } EOF ;
+
+/* ===== Glavna funkcija =====
+   U TFL je obavezna glavna funkcija theSitDown().
+   Kraj glavne funkcije MORA eksplicitno da se završi naredbom
+   sleepWithTheFishes; (dozvoljavam i prazne zagrade po specifikaciji). */
+
+main_def     = THESITDOWN LPAREN RPAREN NL0 LBRACE NL0
+                 block
+                 main_ending
+               NL0 RBRACE ;
+
+main_ending  = SLEEPWITHTHEFISHES [ LPAREN RPAREN ] SEMICOLON ;
+
+/* ===== Funkcije korisnika =====
+   organizeHit ime(params) [intel type] { ... }
+   Ako postoji 'intel type', u telu se očekuje 'sendWord expr;'.
+   Ako nema 'intel', na kraju funkcije treba da bude 'forgetAboutIt;'.
+   (Ovu semantičku obavezu proveri u semantic pass-u.) */
+
+func_def     = ORGANIZEHIT IDENT LPAREN [ params ] RPAREN [ INTEL type ]
+               NL0 LBRACE NL0
+                 block
+                 func_ending
+               NL0 RBRACE ;
+
+func_ending  = ( SENDWORD expr SEMICOLON ) | ( FORGETABOUTIT SEMICOLON ) ;
+
+/* ===== Parametri ===== */
+
+params       = param { COMMA param } ;
+param        = IDENT COLON type ;
+
+/* ===== Tipovi =====
+   Bazni tipovi: cash, slice, dossier, associate (string), mark (char).
+   Niz (crew) se piše kao crew[ type ].
+*/
+
+type         = base_type
+             | CREW LBRACKET type RBRACKET ;
+
+base_type    = CASH
+             | SLICE
+             | DOSSIER
+             | ASSOCIATE
+             | MARK ;
+
+/* ===== Telo (blok) =====
+   Statement-i su terminirani sa ';' i mogu biti odvojeni NEWLINE-ovima.
+*/
+
+block        = { stmt NL0 } ;
+
+/* ===== Naredbe ===== */
+
+stmt         = var_decl SEMICOLON
+             | assign_stmt SEMICOLON
+             | call_stmt SEMICOLON
+             | if_stmt
+             | for_stmt
+             ;
+
+/* Deklaracije promenljivih — podržavam više deklaratora u jednom redu:
+   npr. 'cash a, b = 3;' ili 'crew[cash] arr;'
+*/
+
+var_decl     = type decl_list ;
+
+decl_list    = decl_item { COMMA decl_item } ;
+decl_item    = IDENT [ ASSIGN expr ] ;
+
+/* Dodela: lvalue = expr; */
+
+assign_stmt  = lvalue ASSIGN expr ;
+
+/* Pozivi:
+   - ugrađeni: spill(expr); snitch(lvalue);
+   - korisnički: IDENT '(' [args] ')';
+*/
+
+call_stmt    = built_in_call | user_call ;
+
+built_in_call = SPILL  LPAREN expr   RPAREN
+              | SNITCH LPAREN lvalue RPAREN ;
+
+user_call    = IDENT LPAREN [ args ] RPAREN ;
+
+args         = expr { COMMA expr } ;
+
+/* If / else (check / planB)
+   check (cond) { block } [ planB { block } ]
+*/
+
+if_stmt      = CHECK LPAREN cond RPAREN NL0 LBRACE NL0 block NL0 RBRACE
+               [ NL0 PLANB NL0 LBRACE NL0 block NL0 RBRACE ] ;
+
+/* For (runTheBooks)
+   runTheBooks ( init ; cond ; step ) { block }
+   - init   je ili deklaracija ili dodela ili prazno
+   - cond   može biti prazno; tada se tretira kao 'alive' u runtime-u
+   - step   je izraz/poziv/dodela; ovde koristimo najšire: (assign | call | expr) opcionalno
+*/
+
+for_stmt     = RUNTHEBOOKS LPAREN for_init SEMICOLON [ cond ] SEMICOLON [ for_step ] RPAREN
+               NL0 LBRACE NL0 block NL0 RBRACE ;
+
+for_init     = ( var_decl ) | ( assign_stmt ) | /* prazno */ ;
+for_step     = assign_stmt | call_stmt | expr ;
+
+/* ===== L-values ===== */
+
+lvalue       = IDENT { LBRACKET expr RBRACKET } ;
+
+/* ===== Uslovi i logika ===== */
+
+cond         = or_expr ;
+
+or_expr      = and_expr { OR  and_expr } ;
+and_expr     = eq_expr  { AND eq_expr  } ;
+
+eq_expr      = rel_expr { ( EQ | NEQ ) rel_expr } ;
+rel_expr     = add_expr { ( LT | LE | GT | GE ) add_expr } ;
+
+/* ===== Aritmetika (klasična precedenca i asocijativnost) ===== */
+
+add_expr     = mul_expr { ( ADD | SUBTRACT ) mul_expr } ;
+mul_expr     = unary    { ( MULTIPLY | DIVIDE | MODULO ) unary } ;
+
+unary        = ( NOT | SUBTRACT ) unary | primary ;
+
+/* ===== Primarni izrazi ===== */
+
+primary      = INT_LITERAL
+             | FLOAT_LITERAL
+             | CHAR_LITERAL
+             | STRING_LITERAL
+             | boolean_lit
+             | user_call                  // funkcijski poziv u izrazu
+             | lvalue                     // ident i/ili indeksiranje
+             | LPAREN expr RPAREN ;
+
+boolean_lit  = ALIVE | WHACKED ;
+
+/* ===== Opšti izraz ===== */
+
+expr         = or_expr ;

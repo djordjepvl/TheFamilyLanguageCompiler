@@ -2,8 +2,8 @@ package parser;
 
 import lexer.token.Token;
 import lexer.token.TokenType;
-import parser.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Parser {
@@ -12,12 +12,29 @@ public class Parser {
 
     public Parser(List<Token> tokens) { this.tokens = tokens; }
 
-    // javni ulaz: ovde ćemo pozvati program() kad dodamo pravila
+    // ==== PUBLIC ENTRY =======================================================
+
     public ProgramNode parse() {
         try {
-            return program(); // implementiramo u sledećem koraku
+            skipNewlines();
+            ProgramNode p = new ProgramNode();
+
+            // 1) obavezni main
+            p.add(parseMainDef());
+
+            // 2) nula-više funkcija
+            skipNewlines();
+            while (!check(TokenType.EOF)) {
+                skipNewlines();
+                if (check(TokenType.EOF)) break;
+                p.add(parseFuncDef());
+                skipNewlines();
+            }
+
+            consume(TokenType.EOF, "Expected end of file");
+            return p;
         } catch (ParseError e) {
-            Token last = previous();
+            Token last = (current > 0) ? previous() : peek();
             Token at   = peek();
             String msg = "SYNTAX ERROR\n" +
                     "Last read: " + info(last) + "\n" +
@@ -31,188 +48,275 @@ public class Parser {
         return t.type + " '" + t.lexeme + "' at " + t.line + ":" + t.colStart;
     }
 
-    private ProgramNode program() {
-        ProgramNode prog = new ProgramNode();
-        while (!isAtEnd()) {
-            // EOF prekida petlju automatski jer check(EOF) postaje true
-            if (check(TokenType.EOF)) break;
-            prog.add(declOrStmt());
-        }
-        // očekujemo zaista EOF na kraju
-        consume(TokenType.EOF, "Expected end of file");
-        return prog;
+    // ==== MAIN ===============================================================
+
+    // theSitDown() { block }
+    private Node parseMainDef() {
+        consume(TokenType.THESITDOWN, "Expected 'theSitDown'");
+        consume(TokenType.LPAREN, "Expected '(' after theSitDown");
+        consume(TokenType.RPAREN, "Expected ')' after theSitDown()");
+        skipNewlines();
+        BlockNode body = block(); // block() očekuje { ... }
+        // (semantika posle): da u telu postoji sleepWithTheFishes;
+        return new MainNode(body);
     }
 
-    // DeclOrStmt → (kasnije FuncDecl | VarDecl) | Stmt
-// Ovde još uvek minimalno: prepoznaj blok ili fallback na naredbu
-    private Node declOrStmt() {
-        // Block na bilo kom nivou
-        if (atBlockStart()) return block();
+    // ==== FUNKCIJE ===========================================================
 
-        // Deklaracija? (tip ili forgetAboutIt)
-        if (isTypeToken(peek().type) || check(TokenType.FORGETABOUTIT)) {
-            // lookahead: Type/forget + IDENT + (  → FuncDecl
-            TokenType first = peek().type;
-            advance(); // pojedi tip/forgetAboutIt
-            Token name = consumeOneOfIdent("Expected function/variable name after type");
-            if (match(TokenType.LPAREN)) {
-                // func: već smo pojeli LPAREN — delegiramo na helper koji nastavlja od već pojedenog
-                return finishFuncDecl(first, name);
-            } else {
-                // var: delegiramo na helper koji završava var deklaraciju
-                return finishVarDecl(first, name);
-            }
-        }
+    // organizeHit IDENT '(' [params] ')' [intel type] '{' block '}'
+    private Node parseFuncDef() {
+        consume(TokenType.ORGANIZEHIT, "Expected 'organizeHit'");
+        Token name = consume(TokenType.IDENTIFIER, "Expected function name");
 
-        // Inače: naredba (if/return/expr;)
-        return stmt();
-    }
-
-    private Node finishVarDecl(TokenType firstTypeTok, Token nameTok) {
-        String ty = typeNameFrom(firstTypeTok);
-        VarDeclNode vd = new VarDeclNode(ty, nameTok.lexeme);
-        if (match(TokenType.ASSIGN)) {
-            vd.add(expression());
-        }
-        consume(TokenType.SEMICOLON, "Expected ';' after variable declaration");
-        return vd;
-    }
-
-    // FuncDecl → (Type | FORGETABOUTIT) IDENT '(' [ParamList] ')' Block
-    private Node finishFuncDecl(TokenType firstTypeTok, Token nameTok) {
-        String ret = typeNameFrom(firstTypeTok);
-        FuncDeclNode fn = new FuncDeclNode(ret, nameTok.lexeme);
-
-        // ParamList?
+        consume(TokenType.LPAREN, "Expected '(' after function name");
+        List<Node> params = new ArrayList<>();
         if (!check(TokenType.RPAREN)) {
-            fn.add(param());
-            while (match(TokenType.COMMA)) fn.add(param());
+            params.add(param());
+            while (match(TokenType.COMMA)) { skipNewlines(); params.add(param()); }
         }
-        consume(TokenType.RPAREN, "Expected ')' after parameter list");
-        // Telo:
-        fn.add(block());
-        return fn;
+        consume(TokenType.RPAREN, "Expected ')' after parameters");
+
+        String retKind = "forgetAboutIt"; // default: void
+        if (match(TokenType.INTEL)) {
+            retKind = parseTypeName(); // podržava i crew[ type ]
+        }
+
+        skipNewlines();
+        BlockNode body = block();
+
+        FuncDeclNode f = new FuncDeclNode(retKind, name.lexeme);
+        for (Node prm : params) f.add(prm);
+        f.add(body);
+        return f;
     }
 
-    // Param → Type IDENT
+    // Param – koristimo "Type IDENT" (u skladu s tvojim dosadašnjim kodom)
     private Node param() {
-        Token t = consumeOneOfType("Expected parameter type");
-        Token id = consumeOneOfIdent("Expected parameter name");
-        return new VarDeclNode(t.lexeme, id.lexeme);
+        String tname = parseTypeName();
+        Token id = consume(TokenType.IDENTIFIER, "Expected parameter name");
+        return new VarDeclNode(tname, id.lexeme);
     }
 
-    // helper: pojedi jedan od tvojih tipova i vrati token tipa (sa lexeme)
-    private Token consumeOneOfType(String msg) {
-        if (isTypeToken(peek().type)) return advance();
-        throw error(msg);
-    }
+    // ==== BLOK / DEKL / STATEMENT ===========================================
 
-    // Block → LBRACE { DeclOrStmt } RBRACE
+    // Block → '{' { DeclOrStmt } '}'
     private BlockNode block() {
         consume(TokenType.LBRACE, "Expected '{' to start a block");
-        return finishBlock();
-    }
-    private BlockNode finishBlock() {
         BlockNode b = new BlockNode();
+        skipNewlines();
         while (!check(TokenType.RBRACE) && !isAtEnd()) {
             b.add(declOrStmt());
+            skipNewlines();
         }
         consume(TokenType.RBRACE, "Expected '}' to close a block");
         return b;
     }
 
-    // ============ token helpers ============
-    private boolean match(TokenType... types) {
-        for (TokenType t : types) if (check(t)) { advance(); return true; }
-        return false;
+    // DeclOrStmt → VarDecl ';' | Stmt
+    private Node declOrStmt() {
+        skipNewlines();
+        if (atBlockStart()) return block();
+
+        if (isTypeStart()) {
+            Node vd = varDecl();
+            consume(TokenType.SEMICOLON, "Expected ';' after variable declaration");
+            return vd;
+        }
+
+        return stmt();
     }
-    private boolean check(TokenType t) { return !isAtEnd() && peek().type == t; }
-    private Token advance() { if (!isAtEnd()) current++; return previous(); }
-    private boolean isAtEnd() { return peek().type == TokenType.EOF; }
-    private Token peek() { return tokens.get(current); }
-    private Token previous() { return tokens.get(current - 1); }
+
+    // VarDecl: type decl_list
+    // decl_list: IDENT [ '=' expr ] { ',' IDENT [ '=' expr ] }
+    private Node varDecl() {
+        String tname = parseTypeName();
+
+        // prvi deklarator
+        Token id = consume(TokenType.IDENTIFIER, "Expected variable name");
+        VarDeclNode first = new VarDeclNode(tname, id.lexeme);
+
+        // --- NOVO: opciono 'countin <expr>' po deklaratoru ---
+        if (match(TokenType.COUNTIN)) {
+            Node sizeExpr = expression();
+            // konvencija: dete #0 = init, dete #1 = size (ili obrnuto, ali dosledno)
+            // ovde stavljamo size kao posebno dete radi semantike
+            // (možeš napraviti i ArrayDeclNode ako želiš eksplicitnije)
+            first.add(new ArraySizeNode(sizeExpr)); // ili samo add(sizeExpr) i razlikuj po tipu čvora
+        }
+
+        if (match(TokenType.ASSIGN)) {
+            first.add(expression());
+        }
+
+        VarDeclNode root = first;
+
+        // ostali deklaratori: , name [countin expr] [= expr]
+        while (match(TokenType.COMMA)) {
+            Token id2 = consume(TokenType.IDENTIFIER, "Expected variable name after ','");
+            VarDeclNode next = new VarDeclNode(tname, id2.lexeme);
+
+            if (match(TokenType.COUNTIN)) {
+                Node sizeExpr2 = expression();
+                next.add(new ArraySizeNode(sizeExpr2)); // vidi napomenu gore
+            }
+            if (match(TokenType.ASSIGN)) {
+                next.add(expression());
+            }
+            root.add(next);
+        }
+        return root;
+    }
 
     private Node stmt() {
-        if (atBlockStart()) return block();                  // Block
-        if (match(TokenType.INTEL)) return ifStmt();         // IfStmt
-        if (match(TokenType.SLEEPWITHTHEFISHES, TokenType.SENDWORD)) {
-            return returnStmt(previous());                   // ReturnStmt
+        skipNewlines();
+        if (atBlockStart()) return block();
+
+        // if
+        if (match(TokenType.CHECK)) return ifStmt();
+
+        // for
+        if (match(TokenType.RUNTHEBOOKS)) return forStmt();
+
+        if (match(TokenType.FORGETABOUTIT)) {
+            ReturnNode r = new ReturnNode("forgetAboutIt");
+            consume(TokenType.SEMICOLON, "Expected ';' after forgetAboutIt");
+            return r;
         }
-        // ExprStmt
-        Node e = expression();
-        consume(TokenType.SEMICOLON, "Expected ';' after expression");
-        ExprStmtNode st = new ExprStmtNode();
-        st.add(e);
-        return st;
+
+        // ugrađeni pozivi kao statement
+        if (check(TokenType.SPILL) || check(TokenType.SNITCH)) {
+            Node c = callStmt();
+            consume(TokenType.SEMICOLON, "Expected ';' after call");
+            return c;
+        }
+
+        // return/sleep/sendWord
+        if (check(TokenType.SLEEPWITHTHEFISHES) || check(TokenType.SENDWORD)) {
+            return returnStmt(advance());
+        }
+
+        // dodela ili izraz/poziv
+        Node s = maybeAssignOrExprStmt();
+        consume(TokenType.SEMICOLON, "Expected ';' after statement");
+        return s;
     }
 
-    // IfStmt → INTEL '(' Expression ')' Block [ PLANB Block ]
+    // check (cond) { then } [ planB { else } ]
     private Node ifStmt() {
-        consume(TokenType.LPAREN, "Expected '(' after intel");
+        // prvi if
+        consume(TokenType.LPAREN, "Expected '(' after check");
+        skipNewlines();
         Node cond = expression();
+        skipNewlines();
         consume(TokenType.RPAREN, "Expected ')' after condition");
-        IfNode n = new IfNode();
-        n.add(cond);
-        n.add(block());            // then-block
-        if (match(TokenType.PLANB)) n.add(block()); // else-block (opciono)
-        return n;
+        skipNewlines();
+
+        IfNode root = new IfNode();
+        root.add(cond);
+        root.add(block());
+
+        // else-if lanci: svaka naredna grana počinje sa CHECK
+        IfNode cursor = root;
+        while (match(TokenType.CHECK)) {
+            consume(TokenType.LPAREN, "Expected '(' after check");
+            skipNewlines();
+            Node cond2 = expression();
+            skipNewlines();
+            consume(TokenType.RPAREN, "Expected ')' after condition");
+            skipNewlines();
+
+            IfNode next = new IfNode();
+            next.add(cond2);
+            next.add(block());
+            // zakači kao "else" na prethodni
+            cursor.add(next);
+            cursor = next;
+        }
+
+        // opcioni planB { ... } kao poslednji else
+        if (match(TokenType.PLANB)) {
+            skipNewlines();
+            cursor.add(block());
+        }
+        return root;
     }
 
-    // ReturnStmt → (SLEEPWITHTHEFISHES | SENDWORD) [Expression] SEMICOLON
+    // runTheBooks (init ; cond ; step) { body }
+    private Node forStmt() {
+        consume(TokenType.LPAREN, "Expected '(' after runTheBooks");
+
+        Node init = null;
+        if (!check(TokenType.SEMICOLON)) {
+            if (isTypeStart()) init = varDecl();
+            else init = maybeAssignOrExprStmtCore();
+        }
+        consume(TokenType.SEMICOLON, "Expected ';' after for-init");
+
+        Node cond = null;
+        if (!check(TokenType.SEMICOLON)) cond = expression();
+        consume(TokenType.SEMICOLON, "Expected ';' after for-condition");
+
+        Node step = null;
+        if (!check(TokenType.RPAREN)) step = maybeAssignOrExprStmtCore();
+        consume(TokenType.RPAREN, "Expected ')' after for-step");
+
+        skipNewlines();
+        BlockNode body = block();
+
+        ForNode f = new ForNode();
+        if (init != null) f.add(init);
+        if (cond != null) f.add(cond);
+        if (step != null) f.add(step);
+        f.add(body);
+        return f;
+    }
+
+    // built-ins kao statement
+    private Node callStmt() {
+        if (match(TokenType.SPILL)) {
+            consume(TokenType.LPAREN, "Expected '(' after spill");
+            Node e = expression();
+            consume(TokenType.RPAREN, "Expected ')' after spill arg");
+            CallNode c = new CallNode("spill"); c.add(e); return c;
+        }
+        if (match(TokenType.SNITCH)) {
+            consume(TokenType.LPAREN, "Expected '(' after snitch");
+            Node lv = parseLValue();
+            consume(TokenType.RPAREN, "Expected ')' after snitch arg");
+            CallNode c = new CallNode("snitch"); c.add(lv); return c;
+        }
+        throw error("Internal: callStmt dispatched on non-builtin");
+    }
+
+    // (sleepWithTheFishes | sendWord) [expr] ;
     private Node returnStmt(Token kw) {
-        ReturnNode r = new ReturnNode();
+        String kind = (kw.type == TokenType.SENDWORD) ? "sendWord" : "sleepWithTheFishes";
+        ReturnNode r = new ReturnNode(kind);
         if (!check(TokenType.SEMICOLON)) r.add(expression());
         consume(TokenType.SEMICOLON, "Expected ';' after return");
         return r;
     }
 
-    private Token consume(TokenType type, String message) {
-        if (check(type)) return advance();
-        throw error(message + " (expected " + type + ")");
+    // ==== IZRAZI =============================================================
+
+    private Node expression() { return assignment(); }
+
+    // assignment: lvalue '=' assignment | logicOr
+    private Node assignment() {
+        int save = current;
+        try {
+            Node lv = parseLValue();
+            if (match(TokenType.ASSIGN)) {
+                Node val = assignment(); // desno-asocijativno
+                AssignNode asg = new AssignNode(lv);
+                asg.add(val);
+                return asg;
+            }
+            // nije dodela — vrati se na početak i parsiraj kao logički izraz
+            current = save;
+        } catch (ParseError ignore) { current = save; }
+        return logicOr();
     }
-
-    private static class ParseError extends RuntimeException { public ParseError(String m){ super(m); } }
-    private ParseError error(String message) { return new ParseError(message + " [saw " + peek().type + "]"); }
-
-    // Pogledaj sledeći token (lookahead +1)
-    private Token peekNext() {
-        if (current + 1 >= tokens.size()) return tokens.get(tokens.size() - 1);
-        return tokens.get(current + 1);
-    }
-
-    // Da li sledeći token otvara blok?
-    private boolean atBlockStart() {
-        return check(TokenType.LBRACE);
-    }
-
-    // Da li je token neki od tvojih tipova
-    private boolean isTypeToken(TokenType t) {
-        return t == TokenType.CASH
-                || t == TokenType.SLICE
-                || t == TokenType.DOSSIER
-                || t == TokenType.CREW
-                || t == TokenType.ASSOCIATE
-                || t == TokenType.MARK;
-    }
-
-    private Token consumeOneOfIdent(String msg) {
-        if (check(TokenType.IDENTIFIER)) return advance();
-        if (check(TokenType.THESITDOWN)) return advance(); // dozvoli "theSitDown" kao ime
-        throw error(msg);
-    }
-
-    // Pretvori TokenType tipa u string tipa (lexeme), ili "forgetAboutIt" za void
-    private String typeNameFrom(TokenType t) {
-        if (t == TokenType.FORGETABOUTIT) return "forgetAboutIt";
-        return peekPreviousLexemeOfType(t);
-    }
-
-    // pošto smo već pojeli tip token gore, njegov lexeme je u previous()
-    private String peekPreviousLexemeOfType(TokenType t) {
-        return previous().lexeme; // lexeme od tipa (cash/slice/...)
-    }
-
-    private Node expression() { return logicOr(); }
 
     private Node logicOr() {
         Node left = logicAnd();
@@ -237,7 +341,7 @@ public class Parser {
     private Node equality() {
         Node left = rel();
         while (match(TokenType.EQ, TokenType.NEQ)) {
-            String op = previous().type == TokenType.EQ ? "==" : "!=";
+            String op = (previous().type == TokenType.EQ) ? "==" : "!=";
             BinOpNode n = new BinOpNode(op);
             n.add(left); n.add(rel());
             left = n;
@@ -259,7 +363,7 @@ public class Parser {
     private Node add() {
         Node left = mul();
         while (match(TokenType.ADD, TokenType.SUBTRACT)) {
-            String op = previous().type == TokenType.ADD ? "+" : "-";
+            String op = (previous().type == TokenType.ADD) ? "+" : "-";
             BinOpNode n = new BinOpNode(op);
             n.add(left); n.add(mul());
             left = n;
@@ -280,7 +384,7 @@ public class Parser {
 
     private Node unary() {
         if (match(TokenType.NOT, TokenType.SUBTRACT)) {
-            String op = previous().type == TokenType.NOT ? "!" : "-";
+            String op = (previous().type == TokenType.NOT) ? "!" : "-";
             UnaryOpNode u = new UnaryOpNode(op);
             u.add(unary());
             return u;
@@ -289,20 +393,142 @@ public class Parser {
     }
 
     private Node primary() {
+        // literali
         if (match(TokenType.INT_LITERAL, TokenType.FLOAT_LITERAL,
                 TokenType.STRING_LITERAL, TokenType.CHAR_LITERAL,
                 TokenType.ALIVE, TokenType.WHACKED)) {
             return new LiteralNode(previous().lexeme);
         }
-        if (match(TokenType.IDENTIFIER)) {
-            return new IdentifierNode(previous().lexeme);
+
+        // korisnički poziv ili lvalue/ident
+        if (check(TokenType.IDENTIFIER)) {
+            // pogledaj da li sledi '(' => poziv
+            Token id = advance();
+            String name = id.lexeme;
+
+            if (match(TokenType.LPAREN)) {
+                CallNode call = new CallNode(name);
+                if (!check(TokenType.RPAREN)) {
+                    call.add(expression());
+                    while (match(TokenType.COMMA)) { skipNewlines(); call.add(expression()); }
+                }
+                consume(TokenType.RPAREN, "Expected ')' after arguments");
+                return call;
+            }
+
+            // možda indeksiranje => lvalue u izrazu (npr. arr[i])
+            Node base = new IdentifierNode(name);
+            while (match(TokenType.LBRACKET)) {
+                Node idx = expression();
+                consume(TokenType.RBRACKET, "Expected ']' after index");
+                base = new IndexNode(base, idx);
+            }
+            return base;
         }
+
+        // (expr)
         if (match(TokenType.LPAREN)) {
             Node e = expression();
             consume(TokenType.RPAREN, "Expected ')'");
             return e;
         }
+
+        // built-in bez '(' nije dozvoljen u izrazu
+        if (check(TokenType.SPILL) || check(TokenType.SNITCH)) {
+            throw error("Expected '(' after built-in name for a call");
+        }
+
         throw error("Expected expression");
     }
-}
 
+    // lvalue: IDENT { '[' expr ']' }
+    private Node parseLValue() {
+        Token id = consume(TokenType.IDENTIFIER, "Expected identifier (lvalue)");
+        Node base = new IdentifierNode(id.lexeme);
+        while (match(TokenType.LBRACKET)) {
+            Node idx = expression();
+            consume(TokenType.RBRACKET, "Expected ']' after index");
+            base = new IndexNode(base, idx);
+        }
+        return base;
+    }
+
+    // ==== TIPOVI =============================================================
+
+    // type: base_type | CREW '[' type ']'
+    // base_type: cash | slice | dossier | associate | mark
+    private String parseTypeName() {
+        if (match(TokenType.CREW)) {
+            consume(TokenType.LBRACKET, "Expected '[' after crew");
+            String inner = parseTypeName();
+            consume(TokenType.RBRACKET, "Expected ']' after crew[...]");
+            return "crew[" + inner + "]";
+        }
+        Token t = consumeOneOfType("Expected type name");
+        return switch (t.type) {
+            case CASH -> "cash";
+            case SLICE -> "slice";
+            case DOSSIER -> "dossier";
+            case ASSOCIATE -> "associate";
+            case MARK -> "mark";
+            default -> t.lexeme.toLowerCase();
+        };
+    }
+
+    private Node maybeAssignOrExprStmt() {
+        Node n = assignment();          // može biti dodela ili običan izraz/poziv
+        ExprStmtNode st = new ExprStmtNode();
+        st.add(n);
+        return st;
+    }
+
+    // Ista stvar, ali BEZ očekivanja ';' (koristi se u for-init i for-step)
+    private Node maybeAssignOrExprStmtCore() {
+        return assignment();            // samo vrati expression/assignment čvor
+    }
+
+    // ==== HELPERS ============================================================
+
+
+
+    private boolean isTypeStart() {
+        return check(TokenType.CREW) || isBaseType(peek().type);
+    }
+    private boolean isBaseType(TokenType t) {
+        return t == TokenType.CASH
+                || t == TokenType.SLICE
+                || t == TokenType.DOSSIER
+                || t == TokenType.ASSOCIATE
+                || t == TokenType.MARK;
+    }
+
+    private Token consumeOneOfType(String msg) {
+        if (isBaseType(peek().type)) return advance();
+        throw error(msg);
+    }
+
+    private boolean atBlockStart() { return check(TokenType.LBRACE); }
+
+    private void skipNewlines() { while (match(TokenType.NEWLINE)) { /* eat */ } }
+
+    private boolean match(TokenType... types) {
+        for (TokenType t : types) if (check(t)) { advance(); return true; }
+        return false;
+    }
+    private boolean check(TokenType t) {
+        if (peek().type == TokenType.EOF) return t == TokenType.EOF;
+        return peek().type == t;
+    }
+    private Token advance() { if (!isAtEnd()) current++; return previous(); }
+    private boolean isAtEnd() { return peek().type == TokenType.EOF; }
+    private Token peek() { return tokens.get(current); }
+    private Token previous() { return tokens.get(current - 1); }
+
+    private Token consume(TokenType type, String message) {
+        if (check(type)) return advance();
+        throw error(message + " (expected " + type + ")");
+    }
+
+    private static class ParseError extends RuntimeException { public ParseError(String m){ super(m); } }
+    private ParseError error(String message) { return new ParseError(message + " [saw " + peek().type + "]"); }
+}

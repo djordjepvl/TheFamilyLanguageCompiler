@@ -1,0 +1,12 @@
+theSitDown() {
+    crew[cash] arr countin 4;
+    arr[0] = 5; arr[1] = 8; arr[2] = 12; arr[3] = 7;
+
+    cash ev = 0;
+    runTheBooks (cash i = 0; i < 4; i = i + 1) {
+        dossier even = (arr[i] % 2 == 0);
+        check (even) { ev = ev + 1; }
+    }
+    spill(ev);          // 2
+    sleepWithTheFishes;
+}
