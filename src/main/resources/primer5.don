@@ -2,8 +2,8 @@ theSitDown() {
     cash base = 75;
     slice fee = 12.5;
     slice total = base + fee * 2.0;   // 100.0
-    associate a = $$Paulie “Walnuts” Gualtieri$$
-    associate b = $$Christopher Moltisanti$$
+    associate a = $$Paulie “Walnuts” Gualtieri$$;
+    associate b = $$Christopher Moltisanti$$;
 
     dossier vip = (total >= 100.0);
     check (vip) { spill(a); } planB { spill(b); }

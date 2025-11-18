@@ -1,8 +1,8 @@
 theSitDown() {
     cash t = 115;
-    associate a = $$Silivio Dante$$
-    associate b = $$Paulie “Walnuts” Gualtieri$$
-    associate c = $$Tony Soprano$$
+    associate a = $$Silivio Dante$$;
+    associate b = $$Paulie “Walnuts” Gualtieri$$;
+    associate c = $$Tony Soprano$$;
 
     check (t == 100) {
         spill(b);
