@@ -4,9 +4,9 @@ organizeHit listThree(associate a, associate  b, associate c) {
 }
 
 theSitDown() {
-    associate a = $$Furio Gunta$$
-    associate b = $$Cristopher Moltisanti$$
-    associate c = $$Tony Soprano$$
+    associate a = $$Furio Gunta$$;
+    associate b = $$Cristopher Moltisanti$$;
+    associate c = $$Tony Soprano$$;
     listThree(a,b,c);
     sleepWithTheFishes;
 }
