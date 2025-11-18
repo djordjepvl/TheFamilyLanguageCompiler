@@ -1,0 +1,12 @@
+organizeHit listTwo(associate a, associate b) {
+    spill(a); spill(b);
+    forgetAboutIt;
+}
+
+theSitDown() {
+    associate a = $$Pene$;
+    associate b = $$Fusili$$
+    
+    listTwo(a,b,c);
+    sleepWithTheFishes;
+}

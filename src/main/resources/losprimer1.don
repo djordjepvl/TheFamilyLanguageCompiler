@@ -1,0 +1,11 @@
+theSitDown() {
+    cash a = 30, b = 100;
+    slice avg = (a + b) / 2;
+    dossier good = (avg >= 100);
+
+    associate a;
+    planB { a = $$Johhny Ola$$; }
+
+    spill(label);
+    sleepWithTheFishes;
+}
