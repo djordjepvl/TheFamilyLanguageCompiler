@@ -1,0 +1,10 @@
+theSitDown() {
+    dossier a = alive;
+    dossier b = whacked;
+    dossier c = (5 > 2);      // alive
+
+    dossier ok = a && !b && c;  // alive
+    check (ok) { spill($$Don Vito Corleone$$); } planB { spill($$Don Michael Corleone$$); }
+
+    sleepWithTheFishes;
+}

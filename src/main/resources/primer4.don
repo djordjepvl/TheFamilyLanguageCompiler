@@ -1,0 +1,12 @@
+organizeHit listThree(associate a, associate  b, associate c) {
+    spill(a); spill(b); spill(c);
+    forgetAboutIt;
+}
+
+theSitDown() {
+    associate a = $$Furio Gunta$$
+    associate b = $$Cristopher Moltisanti$$
+    associate c = $$Tony Soprano$$
+    listThree(a,b,c);
+    sleepWithTheFishes;
+}

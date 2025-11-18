@@ -1,0 +1,16 @@
+theSitDown() {
+    cash t = 115;
+    associate a = $$Silivio Dante$$
+    associate b = $$Paulie “Walnuts” Gualtieri$$
+    associate c = $$Tony Soprano$$
+
+    check (t == 100) {
+        spill(b);
+    } check (t > 100) {
+        spill(c);
+    } planB {
+        spill(a);
+    }
+
+    sleepWithTheFishes;
+}

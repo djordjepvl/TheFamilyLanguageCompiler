@@ -1,0 +1,14 @@
+organizeHit mul(cash a, cash b) intel cash { sendWord a * b; }
+
+organizeHit isPositive(cash x) intel dossier {
+    check (x > 0) { sendWord alive; }
+    planB { sendWord whacked; }
+}
+
+theSitDown() {
+    cash m = mul(12, 5);       // 60
+    dossier ok = isPositive(m);
+    check (ok) { spill($$We’re back in business!$$); }
+    spill(m);
+    sleepWithTheFishes;
+}

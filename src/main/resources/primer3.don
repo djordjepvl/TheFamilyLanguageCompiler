@@ -1,0 +1,12 @@
+organizeHit isClemenza(associate r) intel dossier {
+    check (r == $$Peter Clemenza$$ || r == $$Salvatore Tessio$$) { sendWord alive; }
+    planB { sendWord whacked; }
+}
+theSitDown() {
+    associate a = $$Peter Clemenza$$;
+    dossier b = isClemenza(a);
+    check (b) { spill($$Its goddamn Clemenza!$$); } 
+    planB { spill($$It was Tessio!$$); }
+    sleepWithTheFishes;
+}
+

@@ -1,0 +1,12 @@
+theSitDown() {
+    cash a = 80, b = 100, c = 120;
+    slice avg = (a + b + c) / 3;
+    dossier good = (avg >= 100);
+
+    associate a = $$Tom Hagen$$;
+    check (good) {a = $$Carlo Rizzi$$; } 
+    planB { a = $$Johhny Ola$$; }
+
+    spill(label);
+    sleepWithTheFishes;
+}

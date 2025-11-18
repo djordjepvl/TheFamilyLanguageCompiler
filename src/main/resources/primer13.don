@@ -1,0 +1,19 @@
+organizeHit avg3(crew[cash] arr) intel slice {
+    slice a = (arr[0] + arr[1] + arr[2]) / 3;
+    sendWord a;
+}
+
+theSitDown() {
+    crew[cash] trib;
+    trib[0] = 95; trib[1] = 100; trib[2] = 105;
+
+    slice a = avg3(trib);
+    spill(a);
+
+    dossier elite = (a >= 100);
+    dossier rising = (trib[2] > trib[0]);
+
+    check (elite && rising) { spill($$Tony Montana$$); } planB { spill($$Manny Ribera$$); }
+
+    sleepWithTheFishes;
+}

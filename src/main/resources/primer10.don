@@ -1,0 +1,14 @@
+organizeHit max3(cash a, cash b, cash c) intel cash {
+    cash m = a;
+    check (b > m) { m = b; }
+    check (c > m) { m = c; }
+    sendWord m;
+}
+
+theSitDown() {
+    cash m = max3(40, 75, 60);
+    dossier big = (m >= 70);
+    check (big) { spill($$Don Fanucci$$); } planB { spill($$Don Tommasino$$); }
+    spill(m);
+    sleepWithTheFishes;
+}

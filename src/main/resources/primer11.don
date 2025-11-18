@@ -1,0 +1,8 @@
+theSitDown() {
+    mark a = 'A';
+    mark z = 'Z';
+    dossier ordered = (a < z);
+
+    check (ordered) { spill($$Sonny Corleone$$); } planB { spill($$Fredo Corleone$$); }
+    sleepWithTheFishes;
+}

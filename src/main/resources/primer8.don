@@ -1,0 +1,10 @@
+theSitDown() {
+    cash x, y, z;
+    snitch(x); snitch(y); snitch(z); 
+
+    slice avg = (x + y + z) / 3;
+    dossier pass = (avg >= 50);
+
+    check (pass) { spill($$Tom Hagen$$); } planB { spill($$Carlo Rizzi$$); }
+    sleepWithTheFishes;
+}

@@ -1,0 +1,10 @@
+theSitDown() {
+    cash v = 150;
+    dossier okMin = (v >= 100);
+    dossier okMax = (v <= 200);
+
+    dossier green = okMin && okMax;
+    check (green) { spill($$Henry Hill$$); } planB { spill($$Tommy DeVito$$); }
+
+    sleepWithTheFishes;
+}
