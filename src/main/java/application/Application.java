@@ -15,50 +15,48 @@ public class Application {
     public static void main(String[] args) throws Exception {
         if (args.length != 1) {
             System.err.println("Usage: java application.Application <source-file>");
-            System.exit(64); // EX_USAGE
+            System.exit(64);
         }
-
         String code = Files.readString(Path.of(args[0]));
 
-        // 1) LEXER
         Lexer lexer = new Lexer(code);
         List<Token> tokens = null;
         try {
             tokens = lexer.scanTokens();
         } catch (Exception lexErr) {
             System.err.println("[LEX ERROR] " + lexErr.getMessage());
-            System.exit(65); // EX_DATAERR
+            System.exit(65);
         }
-
-        // 2) PARSER
         ProgramNode ast;
         try {
             Parser parser = new Parser(tokens);
             ast = parser.parse();
         } catch (RuntimeException parseErr) {
-            // lepši ispis greške + kratka tabela tokena
             System.err.println(parseErr.getMessage());
             System.err.println("\n-- TOKENS --");
             for (Token t : tokens) System.err.println(TokenFormatter.format(t));
-            System.exit(65); // EX_DATAERR
+            System.exit(65);
             return;
         }
 
-        // 3) ISPIS AST-a (outline + JSON)
-        System.out.println("\n== AST (outline) ==");
-        System.out.println(ast.printTree());
+        Path outputDir = Path.of("output");
+        if (!Files.exists(outputDir)) Files.createDirectories(outputDir);
 
-        System.out.println("== AST (JSON) ==");
-        System.out.println(ast.toJson());
+        // 2. Define the base name of your input file
+        Path inputPath = Path.of(args[0]);
+        // 2. Get filename without .don extension (e.g., "primer5")
+        String baseName = inputPath.getFileName().toString().replaceFirst("\\.[^.]+$", "");
 
-        // 4) (OPCIONO) Visitor ispis (S-expr/pretty)
-        // Radi samo ako si dodao Visitor i AstPrinter.
+        // 3. Save the AST and JSON for debugging
+        Files.writeString(outputDir.resolve(baseName + "_ast.txt"), ast.printTree());
+        Files.writeString(outputDir.resolve(baseName + "_ast.json"), ast.toJson());
+
         try {
             String pretty = ast.accept(new AstPrinter());
             System.out.println("== AST (Visitor / AstPrinter) ==");
             System.out.println(pretty);
         } catch (Throwable ignore) {
-            // Ako još nemaš AstPrinter ili Visitor, preskoči tiho.
+
         }
     }
 }

@@ -37,39 +37,52 @@ public abstract class Node {
     // --- JSON ---
     public final String toJson() {
         StringBuilder sb = new StringBuilder();
-        toJson(sb);
+        toJson(sb, 0); // Start the recursive process
         return sb.toString();
     }
-    private void toJson(StringBuilder sb) {
-        sb.append("{\"type\":\"").append(getClass().getSimpleName())
-                .append("\",\"id\":").append(id);
 
-        // hook za podklase – dopunska polja (npr. name/op/value)
-        Map<String, Object> meta = new LinkedHashMap<>();
+    // 1. Ensure this takes both StringBuilder AND indent
+    protected void toJson(StringBuilder sb, int indent) {
+        String margin = "  ".repeat(indent);
+        String childMargin = "  ".repeat(indent + 1);
+
+        sb.append("{\n");
+        sb.append(childMargin).append("\"type\": \"").append(getClass().getSimpleName()).append("\",\n");
+        sb.append(childMargin).append("\"id\": ").append(id);
+
+        Map<String, Object> meta = new java.util.LinkedHashMap<>();
         toJsonFields(meta);
-        if (!meta.isEmpty()) {
-            for (Map.Entry<String,Object> e : meta.entrySet()) {
-                sb.append(",\"").append(e.getKey()).append("\":");
-                writeJsonValue(sb, e.getValue());
-            }
+        for (var entry : meta.entrySet()) {
+            sb.append(",\n").append(childMargin).append("\"").append(entry.getKey()).append("\": ");
+            writeJsonValue(sb, entry.getValue(), indent + 1);
         }
 
-        sb.append(",\"children\":[");
-        for (int i = 0; i < children.size(); i++) {
-            if (i > 0) sb.append(",");
-            children.get(i).toJson(sb);
+        sb.append(",\n").append(childMargin).append("\"children\": [");
+        if (!children.isEmpty()) {
+            sb.append("\n");
+            for (int i = 0; i < children.size(); i++) {
+                sb.append(childMargin).append("  ");
+                children.get(i).toJson(sb, indent + 2); // Correct recursive call
+                if (i < children.size() - 1) sb.append(",");
+                sb.append("\n");
+            }
+            sb.append(childMargin);
         }
-        sb.append("]}");
+        sb.append("]\n").append(margin).append("}");
     }
 
     /** Podklase mogu da upišu dodatna JSON polja ovde (default: ništa). */
     protected void toJsonFields(Map<String, Object> out) { /* no-op */ }
 
     /** Jednostavan JSON writer za osnovne tipove */
-    private static void writeJsonValue(StringBuilder sb, Object v) {
-        if (v == null) { sb.append("null"); return; }
-        if (v instanceof Number || v instanceof Boolean) { sb.append(v); return; }
-        sb.append("\"").append(escape(String.valueOf(v))).append("\"");
+    private void writeJsonValue(StringBuilder sb, Object value, int indent) {
+        if (value instanceof String) {
+            sb.append("\"").append(value).append("\"");
+        } else if (value instanceof Node) {
+            ((Node) value).toJson(sb, indent); // Now matches the signature above
+        } else {
+            sb.append(value);
+        }
     }
     private static String escape(String s) {
         return s.replace("\\","\\\\").replace("\"","\\\"").replace("\n","\\n");
