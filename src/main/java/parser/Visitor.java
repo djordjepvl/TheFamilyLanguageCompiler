@@ -18,4 +18,5 @@ public interface Visitor<R> {
     R visitUnary(UnaryOpNode n);
     R visitBinary(BinOpNode n);
     R visitArraySize(ArraySizeNode n);
+    R visitCast(CastNode n);
 }

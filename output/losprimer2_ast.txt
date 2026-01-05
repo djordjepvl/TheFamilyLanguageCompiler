@@ -1,0 +1,13 @@
+ProgramNode#1
+  MainNode#13
+    BlockNode#2
+      VarDeclNode#3(crew[cash] a)
+        ArraySizeNode#5(countin)
+          LiteralNode#4(10)
+      ExprStmtNode#11
+        AssignNode#10
+          IndexNode#8
+            IdentifierNode#6(a)
+            LiteralNode#7(0)
+          LiteralNode#9(2.3)
+      ReturnNode#12(sleepWithTheFishes)

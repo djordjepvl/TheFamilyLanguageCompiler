@@ -1,0 +1,83 @@
+{
+  "type": "ProgramNode",
+  "id": 1,
+  "children": [
+    {
+      "type": "MainNode",
+      "id": 13,
+      "children": [
+        {
+          "type": "BlockNode",
+          "id": 2,
+          "children": [
+            {
+              "type": "VarDeclNode",
+              "id": 3,
+              "type": "crew[cash]",
+              "name": "a",
+              "children": [
+                {
+                  "type": "ArraySizeNode",
+                  "id": 5,
+                  "kind": "countin",
+                  "children": [
+                    {
+                      "type": "LiteralNode",
+                      "id": 4,
+                      "value": "10",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "ExprStmtNode",
+              "id": 11,
+              "children": [
+                {
+                  "type": "AssignNode",
+                  "id": 10,
+                  "kind": "assign",
+                  "name": null,
+                  "children": [
+                    {
+                      "type": "IndexNode",
+                      "id": 8,
+                      "children": [
+                        {
+                          "type": "IdentifierNode",
+                          "id": 6,
+                          "name": "a",
+                          "children": []
+                        },
+                        {
+                          "type": "LiteralNode",
+                          "id": 7,
+                          "value": "0",
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "type": "LiteralNode",
+                      "id": 9,
+                      "value": "2.3",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "ReturnNode",
+              "id": 12,
+              "kind": "sleepWithTheFishes",
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

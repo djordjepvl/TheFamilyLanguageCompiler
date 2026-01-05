@@ -56,6 +56,11 @@ public final class AstPrinter implements Visitor<String> {
         return "(" + "countin " + sizeStr + ")";
     }
 
+    @Override
+    public String visitCast(CastNode n) {
+        return "(" + n.typeName + ") " + n.expr.accept(this);
+    }
+
     // --- Decls / Stmts -------------------------------------------------------
 
     @Override

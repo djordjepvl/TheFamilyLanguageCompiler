@@ -41,6 +41,15 @@ public class Parser {
         return p;
     }
 
+    private boolean isTypeToken(TokenType t) {
+        return t == TokenType.CASH
+                || t == TokenType.SLICE
+                || t == TokenType.DOSSIER
+                || t == TokenType.ASSOCIATE
+                || t == TokenType.MARK
+                || t == TokenType.CREW;
+    }
+
     private Node parseMainDef() {
         consume(TokenType.THESITDOWN, "Expected 'theSitDown'");
         consume(TokenType.LPAREN, "Expected '('");
@@ -266,8 +275,7 @@ public class Parser {
             Node lv = parseLValue();
             if (match(TokenType.ASSIGN)) {
                 Node val = assignment();
-                AssignNode asg = new AssignNode(lv);
-                asg.add(val);
+                AssignNode asg = new AssignNode(lv, val);
                 return asg;
             }
             current = save;
@@ -348,14 +356,22 @@ public class Parser {
     }
 
     private Node unary() {
-        if (match(TokenType.NOT, TokenType.SUBTRACT)) {
-            String op = (previous().type == TokenType.NOT) ? "!" : "-";
-            UnaryOpNode u = new UnaryOpNode(op);
-            u.add(unary());
-            return u;
+        if (match(TokenType.LPAREN) && isTypeToken(peek().type)) {
+            Token typeTok = advance();
+            consume(TokenType.RPAREN, "Expected ')' after cast type");
+            Node expr = unary();
+            return new CastNode(typeTok.lexeme, expr);
         }
+
+        if (match(TokenType.NOT, TokenType.SUBTRACT)) {
+            Token op = previous();
+            Node right = unary();
+            return new UnaryOpNode(op.lexeme, right);
+        }
+
         return primary();
     }
+
 
     private Node primary() {
         if (match(TokenType.INT_LITERAL, TokenType.FLOAT_LITERAL,

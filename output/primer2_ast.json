@@ -1,0 +1,411 @@
+{
+  "type": "ProgramNode",
+  "id": 1,
+  "children": [
+    {
+      "type": "MainNode",
+      "id": 74,
+      "children": [
+        {
+          "type": "BlockNode",
+          "id": 2,
+          "children": [
+            {
+              "type": "VarDeclNode",
+              "id": 3,
+              "type": "crew[cash]",
+              "name": "arr",
+              "children": [
+                {
+                  "type": "ArraySizeNode",
+                  "id": 5,
+                  "kind": "countin",
+                  "children": [
+                    {
+                      "type": "LiteralNode",
+                      "id": 4,
+                      "value": "4",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "ExprStmtNode",
+              "id": 11,
+              "children": [
+                {
+                  "type": "AssignNode",
+                  "id": 10,
+                  "kind": "assign",
+                  "name": null,
+                  "children": [
+                    {
+                      "type": "IndexNode",
+                      "id": 8,
+                      "children": [
+                        {
+                          "type": "IdentifierNode",
+                          "id": 6,
+                          "name": "arr",
+                          "children": []
+                        },
+                        {
+                          "type": "LiteralNode",
+                          "id": 7,
+                          "value": "0",
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "type": "LiteralNode",
+                      "id": 9,
+                      "value": "5",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "ExprStmtNode",
+              "id": 17,
+              "children": [
+                {
+                  "type": "AssignNode",
+                  "id": 16,
+                  "kind": "assign",
+                  "name": null,
+                  "children": [
+                    {
+                      "type": "IndexNode",
+                      "id": 14,
+                      "children": [
+                        {
+                          "type": "IdentifierNode",
+                          "id": 12,
+                          "name": "arr",
+                          "children": []
+                        },
+                        {
+                          "type": "LiteralNode",
+                          "id": 13,
+                          "value": "1",
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "type": "LiteralNode",
+                      "id": 15,
+                      "value": "8",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "ExprStmtNode",
+              "id": 23,
+              "children": [
+                {
+                  "type": "AssignNode",
+                  "id": 22,
+                  "kind": "assign",
+                  "name": null,
+                  "children": [
+                    {
+                      "type": "IndexNode",
+                      "id": 20,
+                      "children": [
+                        {
+                          "type": "IdentifierNode",
+                          "id": 18,
+                          "name": "arr",
+                          "children": []
+                        },
+                        {
+                          "type": "LiteralNode",
+                          "id": 19,
+                          "value": "2",
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "type": "LiteralNode",
+                      "id": 21,
+                      "value": "12",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "ExprStmtNode",
+              "id": 29,
+              "children": [
+                {
+                  "type": "AssignNode",
+                  "id": 28,
+                  "kind": "assign",
+                  "name": null,
+                  "children": [
+                    {
+                      "type": "IndexNode",
+                      "id": 26,
+                      "children": [
+                        {
+                          "type": "IdentifierNode",
+                          "id": 24,
+                          "name": "arr",
+                          "children": []
+                        },
+                        {
+                          "type": "LiteralNode",
+                          "id": 25,
+                          "value": "3",
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "type": "LiteralNode",
+                      "id": 27,
+                      "value": "7",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "VarDeclNode",
+              "id": 30,
+              "type": "cash",
+              "name": "ev",
+              "children": [
+                {
+                  "type": "LiteralNode",
+                  "id": 31,
+                  "value": "0",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "ForNode",
+              "id": 69,
+              "children": [
+                {
+                  "type": "VarDeclNode",
+                  "id": 32,
+                  "type": "cash",
+                  "name": "i",
+                  "children": [
+                    {
+                      "type": "LiteralNode",
+                      "id": 33,
+                      "value": "0",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "type": "BinOpNode",
+                  "id": 36,
+                  "op": "<",
+                  "children": [
+                    {
+                      "type": "IdentifierNode",
+                      "id": 35,
+                      "name": "i",
+                      "children": []
+                    },
+                    {
+                      "type": "LiteralNode",
+                      "id": 37,
+                      "value": "4",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "type": "AssignNode",
+                  "id": 43,
+                  "kind": "assign",
+                  "name": "i",
+                  "children": [
+                    {
+                      "type": "IdentifierNode",
+                      "id": 38,
+                      "name": "i",
+                      "children": []
+                    },
+                    {
+                      "type": "BinOpNode",
+                      "id": 41,
+                      "op": "+",
+                      "children": [
+                        {
+                          "type": "IdentifierNode",
+                          "id": 40,
+                          "name": "i",
+                          "children": []
+                        },
+                        {
+                          "type": "LiteralNode",
+                          "id": 42,
+                          "value": "1",
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "BlockNode",
+                  "id": 44,
+                  "children": [
+                    {
+                      "type": "VarDeclNode",
+                      "id": 45,
+                      "type": "dossier",
+                      "name": "even",
+                      "children": [
+                        {
+                          "type": "BinOpNode",
+                          "id": 56,
+                          "op": "==",
+                          "children": [
+                            {
+                              "type": "BinOpNode",
+                              "id": 54,
+                              "op": "%",
+                              "children": [
+                                {
+                                  "type": "IndexNode",
+                                  "id": 53,
+                                  "children": [
+                                    {
+                                      "type": "IdentifierNode",
+                                      "id": 50,
+                                      "name": "arr",
+                                      "children": []
+                                    },
+                                    {
+                                      "type": "IdentifierNode",
+                                      "id": 52,
+                                      "name": "i",
+                                      "children": []
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "LiteralNode",
+                                  "id": 55,
+                                  "value": "2",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "type": "LiteralNode",
+                              "id": 57,
+                              "value": "0",
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "IfNode",
+                      "id": 60,
+                      "children": [
+                        {
+                          "type": "IdentifierNode",
+                          "id": 59,
+                          "name": "even",
+                          "children": []
+                        },
+                        {
+                          "type": "BlockNode",
+                          "id": 61,
+                          "children": [
+                            {
+                              "type": "ExprStmtNode",
+                              "id": 68,
+                              "children": [
+                                {
+                                  "type": "AssignNode",
+                                  "id": 67,
+                                  "kind": "assign",
+                                  "name": "ev",
+                                  "children": [
+                                    {
+                                      "type": "IdentifierNode",
+                                      "id": 62,
+                                      "name": "ev",
+                                      "children": []
+                                    },
+                                    {
+                                      "type": "BinOpNode",
+                                      "id": 65,
+                                      "op": "+",
+                                      "children": [
+                                        {
+                                          "type": "IdentifierNode",
+                                          "id": 64,
+                                          "name": "ev",
+                                          "children": []
+                                        },
+                                        {
+                                          "type": "LiteralNode",
+                                          "id": 66,
+                                          "value": "1",
+                                          "children": []
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "CallNode",
+              "id": 72,
+              "callee": "spill",
+              "children": [
+                {
+                  "type": "IdentifierNode",
+                  "id": 71,
+                  "name": "ev",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "ReturnNode",
+              "id": 73,
+              "kind": "sleepWithTheFishes",
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

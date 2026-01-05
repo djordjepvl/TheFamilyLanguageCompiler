@@ -12,9 +12,7 @@ public class Lexer {
     private final String source;
     private final List<Token> tokens = new ArrayList<>();
 
-    // ✅ Tvoja KEYWORDS mapa (već usklađena sa TFL)
     private static final Map<String, TokenType> KEYWORDS = Map.ofEntries(
-            // Tipovi podataka
             Map.entry("cash", TokenType.CASH),
             Map.entry("slice", TokenType.SLICE),
             Map.entry("dossier", TokenType.DOSSIER),
@@ -22,7 +20,6 @@ public class Lexer {
             Map.entry("associate", TokenType.ASSOCIATE),
             Map.entry("mark", TokenType.MARK),
 
-            // Ključne reči funkcija i kontrole toka
             Map.entry("theSitDown", TokenType.THESITDOWN),
             Map.entry("sleepWithTheFishes", TokenType.SLEEPWITHTHEFISHES),
             Map.entry("organizeHit", TokenType.ORGANIZEHIT),
@@ -35,7 +32,6 @@ public class Lexer {
             Map.entry("snitch", TokenType.SNITCH),
             Map.entry("spill", TokenType.SPILL),
 
-            // Logičke vrednosti
             Map.entry("alive", TokenType.ALIVE),
             Map.entry("whacked", TokenType.WHACKED),
 
@@ -60,7 +56,6 @@ public class Lexer {
         char c = sc.advance();
 
         switch (c) {
-            // ── zagrade i separatori ───────────────────────────────
             case '(' -> add(TokenType.LPAREN);
             case ')' -> add(TokenType.RPAREN);
             case '[' -> add(TokenType.LBRACKET);
@@ -71,42 +66,40 @@ public class Lexer {
             case ';' -> add(TokenType.SEMICOLON);
             case ':' -> add(TokenType.COLON);
 
-            // ── aritmetika ─────────────────────────────────────────
             case '+' -> add(TokenType.ADD);
             case '-' -> add(TokenType.SUBTRACT);
             case '*' -> add(TokenType.MULTIPLY);
+
             case '/' -> {
-                // linijski komentar //...
                 if (sc.match('/')) {
                     while (!sc.isAtEnd() && sc.peek() != '\n') sc.advance();
                 } else {
                     add(TokenType.DIVIDE);
                 }
             }
+
             case '%' -> add(TokenType.MODULO);
 
-            // ── relacije ───────────────────────────────────────────
             case '<' -> add(sc.match('=') ? TokenType.LE : TokenType.LT);
             case '>' -> add(sc.match('=') ? TokenType.GE : TokenType.GT);
 
-            // ── dodela / jednakost ─────────────────────────────────
             case '=' -> add(sc.match('=') ? TokenType.EQ : TokenType.ASSIGN);
 
-            // ── logika ─────────────────────────────────────────────
             case '!' -> {
                 if (sc.match('=')) add(TokenType.NEQ);
                 else add(TokenType.NOT);
             }
+
             case '&' -> {
                 if (sc.match('&')) add(TokenType.AND);
                 else throw error("Expected '&' after '&' (use '&&' for AND)");
             }
+
             case '|' -> {
                 if (sc.match('|')) add(TokenType.OR);
                 else throw error("Expected '|' after '|' (use '||' for OR)");
             }
 
-            // ── string literal $$ ... $$ ───────────────────────────
             case '$' -> {
                 if (sc.match('$')) {
                     stringDollarDollar();
@@ -115,16 +108,15 @@ public class Lexer {
                 }
             }
 
-            // ── char literal 'A' ───────────────────────────────────
             case '\'' -> charLiteral();
 
-            // ── novi red i beline ──────────────────────────────────
             case '\n' -> tokens.add(new Token(
-                    TokenType.NEWLINE, "\n", null, sc.getStartLine(), sc.getStartCol(), sc.getStartCol()
+                    TokenType.NEWLINE, "\n", null,
+                    sc.getStartLine(), sc.getStartCol(), sc.getStartCol()
             ));
-            case ' ', '\r', '\t' -> { /* skip */ }
 
-            // ── brojevi / identifikatori ───────────────────────────
+            case ' ', '\r', '\t' -> {}
+
             default -> {
                 if (Character.isDigit(c)) {
                     numberOrFloat();
@@ -137,35 +129,27 @@ public class Lexer {
         }
     }
 
-    // ===== helperi =====
-
     private void numberOrFloat() {
         int startIdx = sc.getStartIdx();
-        int startLine = sc.getStartLine();
-        int startCol  = sc.getStartCol();
 
         while (Character.isDigit(sc.peek())) sc.advance();
 
         boolean isFloat = false;
         if (sc.peek() == '.' && Character.isDigit(sc.peekNext())) {
             isFloat = true;
-            sc.advance(); // '.'
+            sc.advance();
             while (Character.isDigit(sc.peek())) sc.advance();
         }
 
         String text = source.substring(startIdx, sc.getCur());
 
-        // zabranjeno slovo odmah posle brojke (npr. 12a)
         char next = sc.peek();
         if (Character.isAlphabetic(next) || next == '_') {
-            throw error("Error: Character in numeric literal");
+            throw error("Character in numeric literal");
         }
 
-        if (isFloat) {
-            addLiteralFloat(text);
-        } else {
-            addLiteralInt(text);
-        }
+        if (isFloat) addLiteralFloat(text);
+        else addLiteralInt(text);
     }
 
     private void identifierOrKeyword() {
@@ -185,11 +169,16 @@ public class Lexer {
         while (!sc.isAtEnd()) {
             char ch = sc.advance();
             if (ch == '$' && sc.match('$')) {
-                // emituj STRING_LITERAL; lexeme i literal = sadržaj
                 String content = sb.toString();
+                String wrapped = "$$" + content + "$$";
+
                 tokens.add(new Token(
-                        TokenType.STRING_LITERAL, content, null,
-                        startLine, startCol, sc.getCol() - 1
+                        TokenType.STRING_LITERAL,
+                        wrapped,
+                        null,
+                        startLine,
+                        startCol,
+                        sc.getCol() - 1
                 ));
                 return;
             }
@@ -205,46 +194,86 @@ public class Lexer {
         if (sc.isAtEnd()) throw error("Unterminated char literal");
         char ch = sc.advance();
 
-        if (ch == '\\') { // minimalna podrška za escape
+        if (ch == '\\') {
             if (sc.isAtEnd()) throw error("Unterminated char escape");
             ch = sc.advance();
         }
 
-        if (!sc.match('\'')) throw error("Char literal must be a single character like 'A'");
+        if (!sc.match('\'')) throw error("Char literal must be a single character");
 
         String lex = "'" + ch + "'";
         tokens.add(new Token(
-                TokenType.CHAR_LITERAL, lex, null,
-                startLine, startCol, sc.getCol() - 1
+                TokenType.CHAR_LITERAL,
+                lex,
+                null,
+                startLine,
+                startCol,
+                sc.getCol() - 1
         ));
     }
 
-    private boolean isIdentStart(char c) { return Character.isLetter(c) || c == '_'; }
-    private boolean isIdentPart(char c)  { return isIdentStart(c) || Character.isDigit(c); }
+    private boolean isIdentStart(char c) {
+        return Character.isLetter(c) || c == '_';
+    }
+
+    private boolean isIdentPart(char c) {
+        return isIdentStart(c) || Character.isDigit(c);
+    }
 
     private void add(TokenType type) {
         String lex = source.substring(sc.getStartIdx(), sc.getCur());
-        tokens.add(new Token(type, lex, null,
-                sc.getStartLine(), sc.getStartCol(), sc.getCol() - 1));
+        tokens.add(new Token(
+                type,
+                lex,
+                null,
+                sc.getStartLine(),
+                sc.getStartCol(),
+                sc.getCol() - 1
+        ));
     }
 
     private void add(TokenType type, String text) {
-        tokens.add(new Token(type, text, null,
-                sc.getStartLine(), sc.getStartCol(), sc.getCol() - 1));
+        tokens.add(new Token(
+                type,
+                text,
+                null,
+                sc.getStartLine(),
+                sc.getStartCol(),
+                sc.getCol() - 1
+        ));
     }
 
     private void addLiteralInt(String literal) {
-        tokens.add(new Token(TokenType.INT_LITERAL, literal, Integer.valueOf(literal),
-                sc.getStartLine(), sc.getStartCol(), sc.getCol() - 1));
+        tokens.add(new Token(
+                TokenType.INT_LITERAL,
+                literal,
+                Integer.valueOf(literal),
+                sc.getStartLine(),
+                sc.getStartCol(),
+                sc.getCol() - 1
+        ));
     }
 
     private void addLiteralFloat(String literal) {
-        tokens.add(new Token(TokenType.FLOAT_LITERAL, literal, null,
-                sc.getStartLine(), sc.getStartCol(), sc.getCol() - 1));
+        tokens.add(new Token(
+                TokenType.FLOAT_LITERAL,
+                literal,
+                null,
+                sc.getStartLine(),
+                sc.getStartCol(),
+                sc.getCol() - 1
+        ));
     }
 
     private RuntimeException error(String msg) {
-        String near = source.substring(sc.getStartIdx(), Math.min(sc.getCur(), source.length()));
-        return new RuntimeException("LEXER > " + msg + " at " + sc.getStartLine() + ":" + sc.getStartCol() + " near '" + near + "'");
+        String near = source.substring(
+                sc.getStartIdx(),
+                Math.min(sc.getCur(), source.length())
+        );
+        return new RuntimeException(
+                "LEXER > " + msg + " at " +
+                        sc.getStartLine() + ":" + sc.getStartCol() +
+                        " near '" + near + "'"
+        );
     }
 }

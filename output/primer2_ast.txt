@@ -1,0 +1,64 @@
+ProgramNode#1
+  MainNode#74
+    BlockNode#2
+      VarDeclNode#3(crew[cash] arr)
+        ArraySizeNode#5(countin)
+          LiteralNode#4(4)
+      ExprStmtNode#11
+        AssignNode#10
+          IndexNode#8
+            IdentifierNode#6(arr)
+            LiteralNode#7(0)
+          LiteralNode#9(5)
+      ExprStmtNode#17
+        AssignNode#16
+          IndexNode#14
+            IdentifierNode#12(arr)
+            LiteralNode#13(1)
+          LiteralNode#15(8)
+      ExprStmtNode#23
+        AssignNode#22
+          IndexNode#20
+            IdentifierNode#18(arr)
+            LiteralNode#19(2)
+          LiteralNode#21(12)
+      ExprStmtNode#29
+        AssignNode#28
+          IndexNode#26
+            IdentifierNode#24(arr)
+            LiteralNode#25(3)
+          LiteralNode#27(7)
+      VarDeclNode#30(cash ev)
+        LiteralNode#31(0)
+      ForNode#69
+        VarDeclNode#32(cash i)
+          LiteralNode#33(0)
+        BinOpNode#36(<)
+          IdentifierNode#35(i)
+          LiteralNode#37(4)
+        AssignNode#43
+          IdentifierNode#38(i)
+          BinOpNode#41(+)
+            IdentifierNode#40(i)
+            LiteralNode#42(1)
+        BlockNode#44
+          VarDeclNode#45(dossier even)
+            BinOpNode#56(==)
+              BinOpNode#54(%)
+                IndexNode#53
+                  IdentifierNode#50(arr)
+                  IdentifierNode#52(i)
+                LiteralNode#55(2)
+              LiteralNode#57(0)
+          IfNode#60
+            IdentifierNode#59(even)
+            BlockNode#61
+              ExprStmtNode#68
+                AssignNode#67
+                  IdentifierNode#62(ev)
+                  BinOpNode#65(+)
+                    IdentifierNode#64(ev)
+                    LiteralNode#66(1)
+      CallNode#72(spill)
+        IdentifierNode#71(ev)
+      ReturnNode#73(sleepWithTheFishes)
