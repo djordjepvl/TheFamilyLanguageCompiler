@@ -1,0 +1,29 @@
+ProgramNode#1
+  MainNode#34
+    BlockNode#2
+      VarDeclNode#3(cash t)
+        LiteralNode#4(115)
+      VarDeclNode#5(associate a)
+        LiteralNode#6($$Silivio Dante$$)
+      VarDeclNode#7(associate b)
+        LiteralNode#8($$Paulie “Walnuts” Gualtieri$$)
+      VarDeclNode#9(associate c)
+        LiteralNode#10($$Tony Soprano$$)
+      IfNode#15
+        BinOpNode#13(==)
+          IdentifierNode#12(t)
+          LiteralNode#14(100)
+        BlockNode#16
+          CallNode#19(spill)
+            IdentifierNode#18(b)
+        IfNode#24
+          BinOpNode#22(>)
+            IdentifierNode#21(t)
+            LiteralNode#23(100)
+          BlockNode#25
+            CallNode#28(spill)
+              IdentifierNode#27(c)
+          BlockNode#29
+            CallNode#32(spill)
+              IdentifierNode#31(a)
+      ReturnNode#33(sleepWithTheFishes)

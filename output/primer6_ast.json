@@ -1,0 +1,187 @@
+{
+  "type": "ProgramNode",
+  "id": 1,
+  "children": [
+    {
+      "type": "MainNode",
+      "id": 34,
+      "children": [
+        {
+          "type": "BlockNode",
+          "id": 2,
+          "children": [
+            {
+              "type": "VarDeclNode",
+              "id": 3,
+              "type": "cash",
+              "name": "t",
+              "children": [
+                {
+                  "type": "LiteralNode",
+                  "id": 4,
+                  "value": "115",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "VarDeclNode",
+              "id": 5,
+              "type": "associate",
+              "name": "a",
+              "children": [
+                {
+                  "type": "LiteralNode",
+                  "id": 6,
+                  "value": "$$Silivio Dante$$",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "VarDeclNode",
+              "id": 7,
+              "type": "associate",
+              "name": "b",
+              "children": [
+                {
+                  "type": "LiteralNode",
+                  "id": 8,
+                  "value": "$$Paulie “Walnuts” Gualtieri$$",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "VarDeclNode",
+              "id": 9,
+              "type": "associate",
+              "name": "c",
+              "children": [
+                {
+                  "type": "LiteralNode",
+                  "id": 10,
+                  "value": "$$Tony Soprano$$",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "IfNode",
+              "id": 15,
+              "children": [
+                {
+                  "type": "BinOpNode",
+                  "id": 13,
+                  "op": "==",
+                  "children": [
+                    {
+                      "type": "IdentifierNode",
+                      "id": 12,
+                      "name": "t",
+                      "children": []
+                    },
+                    {
+                      "type": "LiteralNode",
+                      "id": 14,
+                      "value": "100",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "type": "BlockNode",
+                  "id": 16,
+                  "children": [
+                    {
+                      "type": "CallNode",
+                      "id": 19,
+                      "callee": "spill",
+                      "children": [
+                        {
+                          "type": "IdentifierNode",
+                          "id": 18,
+                          "name": "b",
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "IfNode",
+                  "id": 24,
+                  "children": [
+                    {
+                      "type": "BinOpNode",
+                      "id": 22,
+                      "op": ">",
+                      "children": [
+                        {
+                          "type": "IdentifierNode",
+                          "id": 21,
+                          "name": "t",
+                          "children": []
+                        },
+                        {
+                          "type": "LiteralNode",
+                          "id": 23,
+                          "value": "100",
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "type": "BlockNode",
+                      "id": 25,
+                      "children": [
+                        {
+                          "type": "CallNode",
+                          "id": 28,
+                          "callee": "spill",
+                          "children": [
+                            {
+                              "type": "IdentifierNode",
+                              "id": 27,
+                              "name": "c",
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "BlockNode",
+                      "id": 29,
+                      "children": [
+                        {
+                          "type": "CallNode",
+                          "id": 32,
+                          "callee": "spill",
+                          "children": [
+                            {
+                              "type": "IdentifierNode",
+                              "id": 31,
+                              "name": "a",
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "ReturnNode",
+              "id": 33,
+              "kind": "sleepWithTheFishes",
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

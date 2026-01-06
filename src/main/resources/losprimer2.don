@@ -1,5 +1,9 @@
 theSitDown() {
-  crew[cash] a countin 10;
-  a[0] = 2.3;
-  sleepWithTheFishes;
+    // GREŠKA: Arithmetic on non-numeric (ili Type Mismatch)
+    // Pokušavamo da saberemo broj 'i' sa stringom $$jedan$$ u trećem delu (step)
+    runTheBooks (cash i = 0; i < 5; i = i + $$jedan$$) {
+        spill(i);
+    }
+
+    sleepWithTheFishes;
 }

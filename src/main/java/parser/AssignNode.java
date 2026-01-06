@@ -2,7 +2,7 @@ package parser;
 
 public final class AssignNode extends Node {
     public final Node target;
-    public final Node value;   // ✅ RHS
+    public final Node value;
     public final String name;
 
     public AssignNode(Node target, Node value) {

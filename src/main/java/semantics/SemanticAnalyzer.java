@@ -11,7 +11,6 @@ public class SemanticAnalyzer {
 
     public void analyze(ProgramNode program) {
         currentScope = new Scope(null);
-
         for (Node n : program.getChildren()) {
             if (n instanceof FuncDeclNode fn) registerFunction(fn);
         }
@@ -35,8 +34,6 @@ public class SemanticAnalyzer {
 
         functions.define(new FunctionSymbol(name, ret, params));
     }
-
-
 
     private void predeclareFunctions(ProgramNode program) {
         for (Node n : program.getChildren()) {
@@ -130,10 +127,8 @@ public class SemanticAnalyzer {
 
     private TypeRef analyzeVarDecl(VarDeclNode v) {
         if (currentScope.isDefinedHere(v.name)) error("Variable already declared: " + v.name);
-
         TypeRef t = TypeRef.parse(v.typeName);
         if (t.base == Type.CREW && (t.elem == null || t.elem == Type.ERROR)) error("Crew element type missing");
-
         currentScope.define(new Symbol(v.name, t));
 
         Node init = null;
@@ -186,12 +181,10 @@ public class SemanticAnalyzer {
         return TypeRef.of(Type.VOID);
     }
 
-
-
     private TypeRef analyzeAssign(AssignNode a) {
         if (a.target == null) error("Invalid assignment target", a);
 
-        TypeRef rhs = analyzeNode(a.getChildren().get(0));
+        TypeRef rhs = analyzeNode(a.value);
 
         if (a.target instanceof IdentifierNode id) {
             Symbol s = currentScope.resolve(id.name);
@@ -207,20 +200,14 @@ public class SemanticAnalyzer {
 
             if (lhs.base == Type.CASH && s.base == Type.SLICE)
                 error("Cannot assign slice to cash", a);
-
             if (!assignCompatible(lhs, rhs))
                 error("Cannot assign " + s + " to " + lhs, a);
-
             return lhs;
         }
-
 
         error("Invalid assignment target", a);
         return TypeRef.of(Type.ERROR);
     }
-
-
-
 
     private TypeRef analyzeIdentifier(IdentifierNode i) {
         Symbol s = currentScope.resolve(i.name);
@@ -240,11 +227,11 @@ public class SemanticAnalyzer {
         return TypeRef.of(baseT.elem);
     }
 
-
     private TypeRef analyzeLiteral(LiteralNode l) {
-
         String v = l.value;
         if (v == null) return TypeRef.of(Type.ERROR);
+
+        if (v.startsWith("$$") && v.endsWith("$$")) return TypeRef.of(Type.ASSOCIATE);
 
         if (v.equals("alive") || v.equals("whacked")) return TypeRef.of(Type.DOSSIER);
         if (v.length() >= 2 && v.startsWith("'") && v.endsWith("'")) return TypeRef.of(Type.MARK);
@@ -288,7 +275,7 @@ public class SemanticAnalyzer {
                 if (!l.isNumeric() || !r.isNumeric()) error("Relational expects numeric");
                 yield TypeRef.of(Type.DOSSIER);
             }
-            case "==" , "!=" -> {
+            case "==", "!=" -> {
                 if (l.isNumeric() && r.isNumeric()) yield TypeRef.of(Type.DOSSIER);
                 if (!l.equals(r)) error("Equality expects same types");
                 yield TypeRef.of(Type.DOSSIER);
@@ -305,7 +292,6 @@ public class SemanticAnalyzer {
         return (n instanceof IdentifierNode) || (n instanceof IndexNode);
     }
 
-
     private TypeRef analyzeCall(CallNode c) {
         if (c.callee.equals("spill")) {
             for (Node arg : c.getChildren()) analyzeNode(arg);
@@ -316,7 +302,10 @@ public class SemanticAnalyzer {
             if (c.getChildren().size() != 1) error("snitch expects 1 argument");
             Node arg = c.getChildren().get(0);
             if (!isLValue(arg)) error("snitch expects an lvalue");
-            analyzeNode(arg);
+
+            TypeRef t = analyzeNode(arg);
+            if (t.base == Type.CREW) error("Cannot snitch a whole crew. Use index.");
+
             return TypeRef.of(Type.VOID);
         }
 
@@ -326,7 +315,6 @@ public class SemanticAnalyzer {
         int got = c.getChildren().size();
         int exp = fn.arity();
         if (got != exp) error("Arity mismatch for " + c.callee);
-
         for (int i = 0; i < got; i++) {
             TypeRef argT = analyzeNode(c.getChildren().get(i));
             TypeRef paramT = fn.paramTypes.get(i);
@@ -342,7 +330,6 @@ public class SemanticAnalyzer {
 
         if (!to.isNumeric()) error("Cast target must be numeric");
         if (!from.isNumeric()) error("Cannot cast non-numeric");
-
         if (to.base == Type.SLICE && from.base == Type.CASH) return TypeRef.of(Type.SLICE);
         if (to.base == Type.CASH && from.base == Type.SLICE) return TypeRef.of(Type.CASH);
         if (to.base == from.base) return TypeRef.of(to.base);
@@ -351,17 +338,11 @@ public class SemanticAnalyzer {
         return TypeRef.of(Type.ERROR);
     }
 
-
     private boolean assignCompatible(TypeRef left, TypeRef right) {
         if (left.equals(right)) return true;
-
         if (left.base == Type.SLICE && right.base == Type.CASH) return true;
-
         return false;
     }
-
-
-
 
     private void error(String msg) {
         throw new SemanticError(msg, null, null);

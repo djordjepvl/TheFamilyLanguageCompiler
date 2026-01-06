@@ -1,13 +1,18 @@
 ProgramNode#1
-  MainNode#13
+  MainNode#21
     BlockNode#2
-      VarDeclNode#3(crew[cash] a)
-        ArraySizeNode#5(countin)
-          LiteralNode#4(10)
-      ExprStmtNode#11
-        AssignNode#10
-          IndexNode#8
-            IdentifierNode#6(a)
-            LiteralNode#7(0)
-          LiteralNode#9(2.3)
-      ReturnNode#12(sleepWithTheFishes)
+      ForNode#19
+        VarDeclNode#3(cash i)
+          LiteralNode#4(0)
+        BinOpNode#7(<)
+          IdentifierNode#6(i)
+          LiteralNode#8(5)
+        AssignNode#14
+          IdentifierNode#9(i)
+          BinOpNode#12(+)
+            IdentifierNode#11(i)
+            LiteralNode#13($$jedan$$)
+        BlockNode#15
+          CallNode#18(spill)
+            IdentifierNode#17(i)
+      ReturnNode#20(sleepWithTheFishes)

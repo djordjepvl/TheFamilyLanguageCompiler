@@ -4,66 +4,96 @@
   "children": [
     {
       "type": "MainNode",
-      "id": 13,
+      "id": 21,
       "children": [
         {
           "type": "BlockNode",
           "id": 2,
           "children": [
             {
-              "type": "VarDeclNode",
-              "id": 3,
-              "type": "crew[cash]",
-              "name": "a",
+              "type": "ForNode",
+              "id": 19,
               "children": [
                 {
-                  "type": "ArraySizeNode",
-                  "id": 5,
-                  "kind": "countin",
+                  "type": "VarDeclNode",
+                  "id": 3,
+                  "type": "cash",
+                  "name": "i",
                   "children": [
                     {
                       "type": "LiteralNode",
                       "id": 4,
-                      "value": "10",
+                      "value": "0",
                       "children": []
                     }
                   ]
-                }
-              ]
-            },
-            {
-              "type": "ExprStmtNode",
-              "id": 11,
-              "children": [
+                },
                 {
-                  "type": "AssignNode",
-                  "id": 10,
-                  "kind": "assign",
-                  "name": null,
+                  "type": "BinOpNode",
+                  "id": 7,
+                  "op": "<",
                   "children": [
                     {
-                      "type": "IndexNode",
+                      "type": "IdentifierNode",
+                      "id": 6,
+                      "name": "i",
+                      "children": []
+                    },
+                    {
+                      "type": "LiteralNode",
                       "id": 8,
+                      "value": "5",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "type": "AssignNode",
+                  "id": 14,
+                  "children": [
+                    {
+                      "type": "IdentifierNode",
+                      "id": 9,
+                      "name": "i",
+                      "children": []
+                    },
+                    {
+                      "type": "BinOpNode",
+                      "id": 12,
+                      "op": "+",
                       "children": [
                         {
                           "type": "IdentifierNode",
-                          "id": 6,
-                          "name": "a",
+                          "id": 11,
+                          "name": "i",
                           "children": []
                         },
                         {
                           "type": "LiteralNode",
-                          "id": 7,
-                          "value": "0",
+                          "id": 13,
+                          "value": "$$jedan$$",
                           "children": []
                         }
                       ]
-                    },
+                    }
+                  ]
+                },
+                {
+                  "type": "BlockNode",
+                  "id": 15,
+                  "children": [
                     {
-                      "type": "LiteralNode",
-                      "id": 9,
-                      "value": "2.3",
-                      "children": []
+                      "type": "CallNode",
+                      "id": 18,
+                      "callee": "spill",
+                      "children": [
+                        {
+                          "type": "IdentifierNode",
+                          "id": 17,
+                          "name": "i",
+                          "children": []
+                        }
+                      ]
                     }
                   ]
                 }
@@ -71,7 +101,7 @@
             },
             {
               "type": "ReturnNode",
-              "id": 12,
+              "id": 20,
               "kind": "sleepWithTheFishes",
               "children": []
             }
