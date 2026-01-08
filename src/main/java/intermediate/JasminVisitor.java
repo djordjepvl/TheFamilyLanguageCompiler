@@ -32,8 +32,7 @@ public class JasminVisitor implements Visitor<String> {
         Node blockNode = n.getChildren().getFirst();
         String body = blockNode.accept(this);
 
-        String end = "    return\n"
-                + ".end method\n";
+        String end = ".end method\n";
 
         return start + body + end;
     }
@@ -45,7 +44,11 @@ public class JasminVisitor implements Visitor<String> {
 
     @Override
     public String visitBlock(BlockNode n) {
-        return "    test\n";
+        StringBuilder sb = new StringBuilder();
+        for (Node child : n.getChildren()) {
+            sb.append(child.accept(this));
+        }
+        return sb.toString();
     }
 
     @Override
@@ -65,12 +68,18 @@ public class JasminVisitor implements Visitor<String> {
 
     @Override
     public String visitReturn(ReturnNode n) {
-        return "";
+        String expr = "";
+        if (!n.getChildren().isEmpty()) {
+            expr = n.getChildren().get(0).accept(this);
+        }
+
+        return expr + "    return\n";
     }
 
     @Override
     public String visitExprStmt(ExprStmtNode n) {
-        return "";
+        String exprCode = n.getChildren().get(0).accept(this);
+        return exprCode + "    pop\n";
     }
 
     @Override
@@ -95,7 +104,7 @@ public class JasminVisitor implements Visitor<String> {
 
     @Override
     public String visitLiteral(LiteralNode n) {
-        return "";
+        return "    ldc " + n.value + "\n";
     }
 
     @Override
@@ -105,7 +114,12 @@ public class JasminVisitor implements Visitor<String> {
 
     @Override
     public String visitBinary(BinOpNode n) {
-        return "";
+        String left = n.getChildren().get(0).accept(this);
+        String right = n.getChildren().get(1).accept(this);
+
+        String op = "    iadd\n";
+
+        return left + right + op;
     }
 
     @Override

@@ -10,6 +10,8 @@
 .method public static main([Ljava/lang/String;)V
     .limit stack 10
     .limit locals 10
-    test
-    return
+    ldc 6
+    ldc 9
+    iadd
+    pop
 .end method

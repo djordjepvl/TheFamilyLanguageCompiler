@@ -4,238 +4,36 @@
   "children": [
     {
       "type": "MainNode",
-      "id": 43,
+      "id": 7,
       "children": [
         {
           "type": "BlockNode",
           "id": 2,
           "children": [
             {
-              "type": "VarDeclNode",
-              "id": 3,
-              "type": "cash",
-              "name": "t",
-              "children": [
-                {
-                  "type": "LiteralNode",
-                  "id": 4,
-                  "value": "115",
-                  "children": []
-                }
-              ]
-            },
-            {
-              "type": "VarDeclNode",
-              "id": 5,
-              "type": "slice",
-              "name": "g",
-              "children": [
-                {
-                  "type": "LiteralNode",
-                  "id": 6,
-                  "value": "230.4",
-                  "children": []
-                }
-              ]
-            },
-            {
               "type": "ExprStmtNode",
-              "id": 13,
-              "children": [
-                {
-                  "type": "AssignNode",
-                  "id": 12,
-                  "children": [
-                    {
-                      "type": "IdentifierNode",
-                      "id": 7,
-                      "name": "g",
-                      "children": []
-                    },
-                    {
-                      "type": "BinOpNode",
-                      "id": 10,
-                      "op": "+",
-                      "children": [
-                        {
-                          "type": "CastNode",
-                          "id": 9,
-                          "typeName": "slice",
-                          "children": [
-                            {
-                              "type": "IdentifierNode",
-                              "id": 8,
-                              "name": "t",
-                              "children": []
-                            }
-                          ]
-                        },
-                        {
-                          "type": "LiteralNode",
-                          "id": 11,
-                          "value": "493.4",
-                          "children": []
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "VarDeclNode",
-              "id": 14,
-              "type": "associate",
-              "name": "a",
-              "children": [
-                {
-                  "type": "LiteralNode",
-                  "id": 15,
-                  "value": "$$Silivio Dante$$",
-                  "children": []
-                }
-              ]
-            },
-            {
-              "type": "VarDeclNode",
-              "id": 16,
-              "type": "associate",
-              "name": "b",
-              "children": [
-                {
-                  "type": "LiteralNode",
-                  "id": 17,
-                  "value": "$$Paulie “Walnuts” Gualtieri$$",
-                  "children": []
-                }
-              ]
-            },
-            {
-              "type": "VarDeclNode",
-              "id": 18,
-              "type": "associate",
-              "name": "c",
-              "children": [
-                {
-                  "type": "LiteralNode",
-                  "id": 19,
-                  "value": "$$Tony Soprano$$",
-                  "children": []
-                }
-              ]
-            },
-            {
-              "type": "IfNode",
-              "id": 24,
+              "id": 6,
               "children": [
                 {
                   "type": "BinOpNode",
-                  "id": 22,
-                  "op": "==",
+                  "id": 4,
+                  "op": "+",
                   "children": [
                     {
-                      "type": "IdentifierNode",
-                      "id": 21,
-                      "name": "t",
+                      "type": "LiteralNode",
+                      "id": 3,
+                      "value": "6",
                       "children": []
                     },
                     {
                       "type": "LiteralNode",
-                      "id": 23,
-                      "value": "100",
+                      "id": 5,
+                      "value": "9",
                       "children": []
-                    }
-                  ]
-                },
-                {
-                  "type": "BlockNode",
-                  "id": 25,
-                  "children": [
-                    {
-                      "type": "CallNode",
-                      "id": 28,
-                      "callee": "spill",
-                      "children": [
-                        {
-                          "type": "IdentifierNode",
-                          "id": 27,
-                          "name": "b",
-                          "children": []
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "type": "IfNode",
-                  "id": 33,
-                  "children": [
-                    {
-                      "type": "BinOpNode",
-                      "id": 31,
-                      "op": ">",
-                      "children": [
-                        {
-                          "type": "IdentifierNode",
-                          "id": 30,
-                          "name": "t",
-                          "children": []
-                        },
-                        {
-                          "type": "LiteralNode",
-                          "id": 32,
-                          "value": "100",
-                          "children": []
-                        }
-                      ]
-                    },
-                    {
-                      "type": "BlockNode",
-                      "id": 34,
-                      "children": [
-                        {
-                          "type": "CallNode",
-                          "id": 37,
-                          "callee": "spill",
-                          "children": [
-                            {
-                              "type": "IdentifierNode",
-                              "id": 36,
-                              "name": "c",
-                              "children": []
-                            }
-                          ]
-                        }
-                      ]
-                    },
-                    {
-                      "type": "BlockNode",
-                      "id": 38,
-                      "children": [
-                        {
-                          "type": "CallNode",
-                          "id": 41,
-                          "callee": "spill",
-                          "children": [
-                            {
-                              "type": "IdentifierNode",
-                              "id": 40,
-                              "name": "a",
-                              "children": []
-                            }
-                          ]
-                        }
-                      ]
                     }
                   ]
                 }
               ]
-            },
-            {
-              "type": "ReturnNode",
-              "id": 42,
-              "kind": "sleepWithTheFishes",
-              "children": []
             }
           ]
         }
