@@ -3,9 +3,15 @@ package intermediate;
 import parser.*;
 
 public class JasminVisitor implements Visitor<String> {
+
+    private String className;
+    public JasminVisitor(String className) {
+        this.className = className;
+    }
+
     @Override
     public String visitProgram(ProgramNode n) {
-        return "";
+        return "test";
     }
 
     @Override

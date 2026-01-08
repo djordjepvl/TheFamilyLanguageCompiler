@@ -71,9 +71,9 @@ public class Application {
         Files.writeString(outputDir.resolve(baseName + "_ast.txt"), ast.printTree());
         Files.writeString(outputDir.resolve(baseName + "_ast.json"), ast.toJson());
 
-        JasminVisitor jasminVisitor = new JasminVisitor();
-        ast.accept(jasminVisitor);
-        String jasminCode = outputDir.resolve(baseName + ".j").toString();
+        JasminVisitor jasminVisitor = new JasminVisitor(baseName);
+        String jasminCode = ast.accept(jasminVisitor);
+        Files.writeString(outputDir.resolve(baseName + ".j"), jasminCode);
 
         ProcessBuilder pbAssemble = new ProcessBuilder("java", "-jar", "lib/jasmin.jar", "-d", "output", jasminCode);
         pbAssemble.inheritIO();
