@@ -4,6 +4,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
+import intermediate.JasminVisitor;
 import lexer.Lexer;
 import lexer.token.Token;
 import lexer.token.TokenFormatter;
@@ -70,21 +71,18 @@ public class Application {
         Files.writeString(outputDir.resolve(baseName + "_ast.txt"), ast.printTree());
         Files.writeString(outputDir.resolve(baseName + "_ast.json"), ast.toJson());
 
-        //try {
-        //    String pretty = ast.accept(new AstPrinter());
-        //    System.out.println("== AST (Visitor / AstPrinter) ==");
-        //    System.out.println(pretty);
-        //} catch (Throwable ignore) {
-        //}
+        JasminVisitor jasminVisitor = new JasminVisitor();
+        ast.accept(jasminVisitor);
+        String jasminCode = outputDir.resolve(baseName + ".j").toString();
 
-        ProcessBuilder pbAssemble = new ProcessBuilder("java", "-jar", "lib/jasmin.jar", "-d", "output", "output/primer6 correct.j");
+        ProcessBuilder pbAssemble = new ProcessBuilder("java", "-jar", "lib/jasmin.jar", "-d", "output", jasminCode);
         pbAssemble.inheritIO();
         Process assemble = pbAssemble.start();
         int assembleResult = assemble.waitFor();
         System.out.println("Jasmin Exit Code: " + assembleResult);
 
         if (assembleResult == 0) {
-            ProcessBuilder pbRun = new ProcessBuilder("java", "-cp", "output", "primer6");
+            ProcessBuilder pbRun = new ProcessBuilder("java", "-cp", "output", baseName);
             pbRun.inheritIO();
             pbRun.start().waitFor();
         }
