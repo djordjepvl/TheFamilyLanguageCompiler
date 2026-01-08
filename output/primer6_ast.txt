@@ -1,29 +1,38 @@
 ProgramNode#1
-  MainNode#34
+  MainNode#43
     BlockNode#2
       VarDeclNode#3(cash t)
         LiteralNode#4(115)
-      VarDeclNode#5(associate a)
-        LiteralNode#6($$Silivio Dante$$)
-      VarDeclNode#7(associate b)
-        LiteralNode#8($$Paulie “Walnuts” Gualtieri$$)
-      VarDeclNode#9(associate c)
-        LiteralNode#10($$Tony Soprano$$)
-      IfNode#15
-        BinOpNode#13(==)
-          IdentifierNode#12(t)
-          LiteralNode#14(100)
-        BlockNode#16
-          CallNode#19(spill)
-            IdentifierNode#18(b)
-        IfNode#24
-          BinOpNode#22(>)
-            IdentifierNode#21(t)
-            LiteralNode#23(100)
-          BlockNode#25
-            CallNode#28(spill)
-              IdentifierNode#27(c)
-          BlockNode#29
-            CallNode#32(spill)
-              IdentifierNode#31(a)
-      ReturnNode#33(sleepWithTheFishes)
+      VarDeclNode#5(slice g)
+        LiteralNode#6(230.4)
+      ExprStmtNode#13
+        AssignNode#12
+          IdentifierNode#7(g)
+          BinOpNode#10(+)
+            CastNode#9(slice)
+              IdentifierNode#8(t)
+            LiteralNode#11(493.4)
+      VarDeclNode#14(associate a)
+        LiteralNode#15($$Silivio Dante$$)
+      VarDeclNode#16(associate b)
+        LiteralNode#17($$Paulie “Walnuts” Gualtieri$$)
+      VarDeclNode#18(associate c)
+        LiteralNode#19($$Tony Soprano$$)
+      IfNode#24
+        BinOpNode#22(==)
+          IdentifierNode#21(t)
+          LiteralNode#23(100)
+        BlockNode#25
+          CallNode#28(spill)
+            IdentifierNode#27(b)
+        IfNode#33
+          BinOpNode#31(>)
+            IdentifierNode#30(t)
+            LiteralNode#32(100)
+          BlockNode#34
+            CallNode#37(spill)
+              IdentifierNode#36(c)
+          BlockNode#38
+            CallNode#41(spill)
+              IdentifierNode#40(a)
+      ReturnNode#42(sleepWithTheFishes)

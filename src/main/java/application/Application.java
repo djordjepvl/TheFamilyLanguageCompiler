@@ -76,5 +76,21 @@ public class Application {
             System.out.println(pretty);
         } catch (Throwable ignore) {
         }
+
+
+
+        // 2. Assemble
+        ProcessBuilder pbAssemble = new ProcessBuilder("java", "-jar", "lib/jasmin.jar", "-d", "output", "output/primer6.j");
+        pbAssemble.inheritIO();
+        Process assemble = pbAssemble.start();
+        int assembleResult = assemble.waitFor();
+        System.out.println("Jasmin Exit Code: " + assembleResult);
+
+// 3. Run
+        if (assembleResult == 0) {
+            ProcessBuilder pbRun = new ProcessBuilder("java", "-cp", "output", "primer6");
+            pbRun.inheritIO();
+            pbRun.start().waitFor();
+        }
     }
 }
