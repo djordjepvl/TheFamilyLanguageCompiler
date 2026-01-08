@@ -264,24 +264,28 @@ public class SemanticAnalyzer {
 
         return switch (b.op) {
             case "+", "-", "*", "/" -> {
-                if (!l.isNumeric() || !r.isNumeric()) error("Arithmetic on non-numeric");
-                yield (l.base == Type.SLICE || r.base == Type.SLICE) ? TypeRef.of(Type.SLICE) : TypeRef.of(Type.CASH);
+                if (!l.isNumeric() || !r.isNumeric()) error("Arithmetic on non-numeric", b);
+                if (l.base != r.base) error("Mixed numeric types; explicit cast required", b);
+                yield TypeRef.of(l.base);
             }
             case "%" -> {
-                if (l.base != Type.CASH || r.base != Type.CASH) error("% expects cash % cash");
+                if (l.base != Type.CASH || r.base != Type.CASH) error("% expects cash % cash", b);
                 yield TypeRef.of(Type.CASH);
             }
             case "<", "<=", ">", ">=" -> {
-                if (!l.isNumeric() || !r.isNumeric()) error("Relational expects numeric");
+                if (!l.isNumeric() || !r.isNumeric()) error("Relational expects numeric", b);
                 yield TypeRef.of(Type.DOSSIER);
             }
             case "==", "!=" -> {
-                if (l.isNumeric() && r.isNumeric()) yield TypeRef.of(Type.DOSSIER);
-                if (!l.equals(r)) error("Equality expects same types");
+                if (l.isNumeric() && r.isNumeric()) {
+                    if (l.base != r.base) error("Equality on different numeric types; explicit cast required", b);
+                    yield TypeRef.of(Type.DOSSIER);
+                }
+                if (!l.equals(r)) error("Equality expects same types", b);
                 yield TypeRef.of(Type.DOSSIER);
             }
             case "&&", "||" -> {
-                if (l.base != Type.DOSSIER || r.base != Type.DOSSIER) error("Logical expects dossier");
+                if (l.base != Type.DOSSIER || r.base != Type.DOSSIER) error("Logical expects dossier", b);
                 yield TypeRef.of(Type.DOSSIER);
             }
             default -> TypeRef.of(Type.ERROR);
@@ -339,9 +343,8 @@ public class SemanticAnalyzer {
     }
 
     private boolean assignCompatible(TypeRef left, TypeRef right) {
-        if (left.equals(right)) return true;
-        if (left.base == Type.SLICE && right.base == Type.CASH) return true;
-        return false;
+        // only exact type equality allowed; explicit casts must be used otherwise
+        return left.equals(right);
     }
 
     private void error(String msg) {
