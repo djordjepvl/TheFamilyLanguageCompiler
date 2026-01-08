@@ -11,12 +11,31 @@ public class JasminVisitor implements Visitor<String> {
 
     @Override
     public String visitProgram(ProgramNode n) {
-        return "test";
+        String header = ".class public " + this.className + "\n"
+                + ".super java/lang/Object\n\n";
+
+        String constructor = ".method public <init>()V\n"
+                + "    aload_0\n"
+                + "    invokespecial java/lang/Object/<init>()V\n"
+                + "    return\n"
+                + ".end method\n\n";
+        Node mainNode = n.getChildren().getFirst();
+        return header + constructor + mainNode.accept(this);
     }
 
     @Override
     public String visitMain(MainNode n) {
-        return "";
+        String start = ".method public static main([Ljava/lang/String;)V\n"
+                + "    .limit stack 10\n"
+                + "    .limit locals 10\n";
+
+        Node blockNode = n.getChildren().getFirst();
+        String body = blockNode.accept(this);
+
+        String end = "    return\n"
+                + ".end method\n";
+
+        return start + body + end;
     }
 
     @Override
@@ -26,7 +45,7 @@ public class JasminVisitor implements Visitor<String> {
 
     @Override
     public String visitBlock(BlockNode n) {
-        return "";
+        return "    test\n";
     }
 
     @Override

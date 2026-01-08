@@ -73,9 +73,9 @@ public class Application {
 
         JasminVisitor jasminVisitor = new JasminVisitor(baseName);
         String jasminCode = ast.accept(jasminVisitor);
-        Files.writeString(outputDir.resolve(baseName + ".j"), jasminCode);
+        Path jasminFilePath = Files.writeString(outputDir.resolve(baseName + ".j"), jasminCode);
 
-        ProcessBuilder pbAssemble = new ProcessBuilder("java", "-jar", "lib/jasmin.jar", "-d", "output", jasminCode);
+        ProcessBuilder pbAssemble = new ProcessBuilder("java", "-jar", "lib/jasmin.jar", "-d", "output", jasminFilePath.toString());
         pbAssemble.inheritIO();
         Process assemble = pbAssemble.start();
         int assembleResult = assemble.waitFor();
