@@ -8,6 +8,7 @@ import java.util.Map;
 public class JasminVisitor implements Visitor<String> {
     private final Map<String, Integer> varMap = new HashMap<>();
     private int nextIndex = 1;
+    private int labelCount = 0;
     private String className;
     public JasminVisitor(String className) {
         this.className = className;
@@ -75,7 +76,19 @@ public class JasminVisitor implements Visitor<String> {
 
     @Override
     public String visitIf(IfNode n) {
-        return "";
+        String labelElse = "else_" + labelCount++;
+        String labelEnd = "end_if_" + labelCount++;
+        StringBuilder sb = new StringBuilder();
+        sb.append(n.getChildren().getFirst().accept(this));
+        sb.append("    ifeq ").append(labelElse).append("\n");
+        sb.append(n.getChildren().get(1).accept(this));
+        sb.append("    goto ").append(labelEnd).append("\n");
+        sb.append(labelElse).append(":\n");
+        if (n.getChildren().size() == 3) {
+            sb.append(n.getChildren().get(2).accept(this));
+        }
+        sb.append(labelEnd).append(":\n");
+        return sb.toString();
     }
 
     @Override
@@ -94,7 +107,7 @@ public class JasminVisitor implements Visitor<String> {
 
     @Override
     public String visitExprStmt(ExprStmtNode n) {
-        String exprCode = n.getChildren().get(0).accept(this);
+        String exprCode = n.getChildren().getFirst().accept(this);
         return exprCode + "    pop\n";
     }
 
@@ -177,17 +190,27 @@ public class JasminVisitor implements Visitor<String> {
     public String visitBinary(BinOpNode n) {
         String left = n.getChildren().get(0).accept(this);
         String right = n.getChildren().get(1).accept(this);
+        if (n.op.equals(">") || n.op.equals("==")) {
+            String instr = n.op.equals(">") ? "if_icmpgt" : "if_icmpeq";
+            String trueLabel = "cmp_true_" + labelCount++;
+            String endLabel = "cmp_end_" + labelCount++;
 
+            return left + right +
+                    "    " + instr + " " + trueLabel + "\n" +
+                    "    iconst_0\n" +
+                    "    goto " + endLabel + "\n" +
+                    trueLabel + ":\n" +
+                    "    iconst_1\n" +
+                    endLabel + ":\n";
+        }
         String type = n.getType();
         String prefix = "SLICE".equals(type) ? "f" : "i";
-
         String op = switch (n.op) {
             case "+" -> "add";
             case "-" -> "sub";
             case "*" -> "mul";
             case "/" -> "div";
-            case "%" -> "rem";
-            default  -> "add";
+            default  -> "rem";
         };
 
         return left + right + "    " + prefix + op + "\n";

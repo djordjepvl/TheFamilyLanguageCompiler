@@ -5,8 +5,46 @@ theSitDown() {
     associate a = $$Silivio Dante$$;
     associate b = $$Paulie “Walnuts” Gualtieri$$;
     associate c = $$Tony Soprano$$;
+    spill(t);
+    check (t == 100) {
+        spill(b);
+    }
+    check (t == 100) {
+        spill(c);
+    } planB (t == 10) {
+        spill(a);
+    } planC (t == 30) {
+        spill(a);
+    } planD (t == 40) {
+        spill(c);
+    }
 
-    spill(c);
+    check (t == 0) { spill(0); }
+    planB (t == 1) { spill(1); }
+    planC (t == 2) { spill(2); }
+    planD (t == 3) { spill(3); }
+    planE (t == 4) { spill(4); }
+    planF (t == 5) { spill(5); }
+    planG (t == 6) { spill(6); }
+    planH (t == 7) { spill(7); }
+    planI (t == 8) { spill(8); }
+    planJ (t == 9) { spill(9); }
+    planK (t == 10) { spill(10); }
+    planL (t == 11) { spill(11); }
+    planM (t == 12) { spill(12); }
+    planN (t == 13) { spill(13); }
+    planO (t == 14) { spill(14); }
+    planP (t == 15) { spill(15); }
+    planQ (t == 16) { spill(16); }
+    planR (t == 17) { spill(17); }
+    planS (t == 18) { spill(18); }
+    planT (t == 19) { spill(19); }
+    planU (t == 20) { spill(20); }
+    planV (t == 21) { spill(21); }
+    planW (t == 22) { spill(22); }
+    planX (t == 23) { spill(23); }
+    planY (t == 24) { spill(24); }
+    planZ { spill(25); }
 
     sleepWithTheFishes;
 }

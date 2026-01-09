@@ -17,7 +17,7 @@ public enum TokenType {
     SENDWORD,           // return
     FORGETABOUTIT,      // void return
     CHECK,              // if
-    PLANB,              // else
+    PLAN,              // else
     RUNTHEBOOKS,        // for petlja
     SPILL,              // print
     SNITCH,             // input

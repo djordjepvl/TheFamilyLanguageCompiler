@@ -169,6 +169,12 @@ public class Parser {
         return s;
     }
 
+    private char planLetter() {
+        // assumes previous token is PLAN
+        String lex = previous().lexeme; // "planB", "planZ", etc.
+        return lex.charAt(4);
+    }
+
     private Node ifStmt() {
         consume(TokenType.LPAREN, "Expected '(' after check");
         skipNewlines();
@@ -184,24 +190,55 @@ public class Parser {
         IfNode cursor = root;
         skipNewlines();
 
-        while (match(TokenType.CHECK)) {
-            consume(TokenType.LPAREN, "Expected '('");
+        char expectedPlan = 'B';
+
+        while (match(TokenType.PLAN)) {
+            char actual = planLetter();
+
+            // must be in strict order
+            if (actual != expectedPlan) {
+                throw error(
+                        "Expected plan" + expectedPlan +
+                                " but found plan" + actual
+                );
+            }
+
+            boolean hasCondition = check(TokenType.LPAREN);
+
+            // planZ is forced to be ELSE
+            if (actual == 'Z') {
+                if (hasCondition) {
+                    throw error("planZ cannot have a condition");
+                }
+                skipNewlines();
+                cursor.add(block());
+                break;
+            }
+
+            // non-last plan may be else OR else-if
+            if (!hasCondition) {
+                skipNewlines();
+                cursor.add(block());
+                break;
+            }
+
+            // else-if
+            consume(TokenType.LPAREN, "Expected '(' after plan" + actual);
             skipNewlines();
             Node cond2 = expression();
             skipNewlines();
             consume(TokenType.RPAREN, "Expected ')'");
             skipNewlines();
+
             IfNode next = new IfNode();
             next.add(cond2);
             next.add(block());
+
             cursor.add(next);
             cursor = next;
-            skipNewlines();
-        }
 
-        if (match(TokenType.PLANB)) {
+            expectedPlan++; // move to next letter
             skipNewlines();
-            cursor.add(block());
         }
 
         return root;

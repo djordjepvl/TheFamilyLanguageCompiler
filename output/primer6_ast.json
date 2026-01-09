@@ -4,7 +4,7 @@
   "children": [
     {
       "type": "MainNode",
-      "id": 24,
+      "id": 272,
       "children": [
         {
           "type": "BlockNode",
@@ -132,14 +132,1353 @@
                 {
                   "type": "IdentifierNode",
                   "id": 21,
-                  "name": "c",
+                  "name": "t",
                   "children": []
                 }
               ]
             },
             {
+              "type": "IfNode",
+              "id": 27,
+              "children": [
+                {
+                  "type": "BinOpNode",
+                  "id": 25,
+                  "op": "==",
+                  "children": [
+                    {
+                      "type": "IdentifierNode",
+                      "id": 24,
+                      "name": "t",
+                      "children": []
+                    },
+                    {
+                      "type": "LiteralNode",
+                      "id": 26,
+                      "value": "100",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "type": "BlockNode",
+                  "id": 28,
+                  "children": [
+                    {
+                      "type": "CallNode",
+                      "id": 31,
+                      "callee": "spill",
+                      "children": [
+                        {
+                          "type": "IdentifierNode",
+                          "id": 30,
+                          "name": "b",
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "IfNode",
+              "id": 36,
+              "children": [
+                {
+                  "type": "BinOpNode",
+                  "id": 34,
+                  "op": "==",
+                  "children": [
+                    {
+                      "type": "IdentifierNode",
+                      "id": 33,
+                      "name": "t",
+                      "children": []
+                    },
+                    {
+                      "type": "LiteralNode",
+                      "id": 35,
+                      "value": "100",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "type": "BlockNode",
+                  "id": 37,
+                  "children": [
+                    {
+                      "type": "CallNode",
+                      "id": 40,
+                      "callee": "spill",
+                      "children": [
+                        {
+                          "type": "IdentifierNode",
+                          "id": 39,
+                          "name": "c",
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "IfNode",
+                  "id": 45,
+                  "children": [
+                    {
+                      "type": "BinOpNode",
+                      "id": 43,
+                      "op": "==",
+                      "children": [
+                        {
+                          "type": "IdentifierNode",
+                          "id": 42,
+                          "name": "t",
+                          "children": []
+                        },
+                        {
+                          "type": "LiteralNode",
+                          "id": 44,
+                          "value": "10",
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "type": "BlockNode",
+                      "id": 46,
+                      "children": [
+                        {
+                          "type": "CallNode",
+                          "id": 49,
+                          "callee": "spill",
+                          "children": [
+                            {
+                              "type": "IdentifierNode",
+                              "id": 48,
+                              "name": "a",
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "IfNode",
+                      "id": 54,
+                      "children": [
+                        {
+                          "type": "BinOpNode",
+                          "id": 52,
+                          "op": "==",
+                          "children": [
+                            {
+                              "type": "IdentifierNode",
+                              "id": 51,
+                              "name": "t",
+                              "children": []
+                            },
+                            {
+                              "type": "LiteralNode",
+                              "id": 53,
+                              "value": "30",
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "type": "BlockNode",
+                          "id": 55,
+                          "children": [
+                            {
+                              "type": "CallNode",
+                              "id": 58,
+                              "callee": "spill",
+                              "children": [
+                                {
+                                  "type": "IdentifierNode",
+                                  "id": 57,
+                                  "name": "a",
+                                  "children": []
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "IfNode",
+                          "id": 63,
+                          "children": [
+                            {
+                              "type": "BinOpNode",
+                              "id": 61,
+                              "op": "==",
+                              "children": [
+                                {
+                                  "type": "IdentifierNode",
+                                  "id": 60,
+                                  "name": "t",
+                                  "children": []
+                                },
+                                {
+                                  "type": "LiteralNode",
+                                  "id": 62,
+                                  "value": "40",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "type": "BlockNode",
+                              "id": 64,
+                              "children": [
+                                {
+                                  "type": "CallNode",
+                                  "id": 67,
+                                  "callee": "spill",
+                                  "children": [
+                                    {
+                                      "type": "IdentifierNode",
+                                      "id": 66,
+                                      "name": "c",
+                                      "children": []
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "IfNode",
+              "id": 72,
+              "children": [
+                {
+                  "type": "BinOpNode",
+                  "id": 70,
+                  "op": "==",
+                  "children": [
+                    {
+                      "type": "IdentifierNode",
+                      "id": 69,
+                      "name": "t",
+                      "children": []
+                    },
+                    {
+                      "type": "LiteralNode",
+                      "id": 71,
+                      "value": "0",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "type": "BlockNode",
+                  "id": 73,
+                  "children": [
+                    {
+                      "type": "CallNode",
+                      "id": 75,
+                      "callee": "spill",
+                      "children": [
+                        {
+                          "type": "LiteralNode",
+                          "id": 74,
+                          "value": "0",
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "IfNode",
+                  "id": 80,
+                  "children": [
+                    {
+                      "type": "BinOpNode",
+                      "id": 78,
+                      "op": "==",
+                      "children": [
+                        {
+                          "type": "IdentifierNode",
+                          "id": 77,
+                          "name": "t",
+                          "children": []
+                        },
+                        {
+                          "type": "LiteralNode",
+                          "id": 79,
+                          "value": "1",
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "type": "BlockNode",
+                      "id": 81,
+                      "children": [
+                        {
+                          "type": "CallNode",
+                          "id": 83,
+                          "callee": "spill",
+                          "children": [
+                            {
+                              "type": "LiteralNode",
+                              "id": 82,
+                              "value": "1",
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "IfNode",
+                      "id": 88,
+                      "children": [
+                        {
+                          "type": "BinOpNode",
+                          "id": 86,
+                          "op": "==",
+                          "children": [
+                            {
+                              "type": "IdentifierNode",
+                              "id": 85,
+                              "name": "t",
+                              "children": []
+                            },
+                            {
+                              "type": "LiteralNode",
+                              "id": 87,
+                              "value": "2",
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "type": "BlockNode",
+                          "id": 89,
+                          "children": [
+                            {
+                              "type": "CallNode",
+                              "id": 91,
+                              "callee": "spill",
+                              "children": [
+                                {
+                                  "type": "LiteralNode",
+                                  "id": 90,
+                                  "value": "2",
+                                  "children": []
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "IfNode",
+                          "id": 96,
+                          "children": [
+                            {
+                              "type": "BinOpNode",
+                              "id": 94,
+                              "op": "==",
+                              "children": [
+                                {
+                                  "type": "IdentifierNode",
+                                  "id": 93,
+                                  "name": "t",
+                                  "children": []
+                                },
+                                {
+                                  "type": "LiteralNode",
+                                  "id": 95,
+                                  "value": "3",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "type": "BlockNode",
+                              "id": 97,
+                              "children": [
+                                {
+                                  "type": "CallNode",
+                                  "id": 99,
+                                  "callee": "spill",
+                                  "children": [
+                                    {
+                                      "type": "LiteralNode",
+                                      "id": 98,
+                                      "value": "3",
+                                      "children": []
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "type": "IfNode",
+                              "id": 104,
+                              "children": [
+                                {
+                                  "type": "BinOpNode",
+                                  "id": 102,
+                                  "op": "==",
+                                  "children": [
+                                    {
+                                      "type": "IdentifierNode",
+                                      "id": 101,
+                                      "name": "t",
+                                      "children": []
+                                    },
+                                    {
+                                      "type": "LiteralNode",
+                                      "id": 103,
+                                      "value": "4",
+                                      "children": []
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "BlockNode",
+                                  "id": 105,
+                                  "children": [
+                                    {
+                                      "type": "CallNode",
+                                      "id": 107,
+                                      "callee": "spill",
+                                      "children": [
+                                        {
+                                          "type": "LiteralNode",
+                                          "id": 106,
+                                          "value": "4",
+                                          "children": []
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "IfNode",
+                                  "id": 112,
+                                  "children": [
+                                    {
+                                      "type": "BinOpNode",
+                                      "id": 110,
+                                      "op": "==",
+                                      "children": [
+                                        {
+                                          "type": "IdentifierNode",
+                                          "id": 109,
+                                          "name": "t",
+                                          "children": []
+                                        },
+                                        {
+                                          "type": "LiteralNode",
+                                          "id": 111,
+                                          "value": "5",
+                                          "children": []
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "BlockNode",
+                                      "id": 113,
+                                      "children": [
+                                        {
+                                          "type": "CallNode",
+                                          "id": 115,
+                                          "callee": "spill",
+                                          "children": [
+                                            {
+                                              "type": "LiteralNode",
+                                              "id": 114,
+                                              "value": "5",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "IfNode",
+                                      "id": 120,
+                                      "children": [
+                                        {
+                                          "type": "BinOpNode",
+                                          "id": 118,
+                                          "op": "==",
+                                          "children": [
+                                            {
+                                              "type": "IdentifierNode",
+                                              "id": 117,
+                                              "name": "t",
+                                              "children": []
+                                            },
+                                            {
+                                              "type": "LiteralNode",
+                                              "id": 119,
+                                              "value": "6",
+                                              "children": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "type": "BlockNode",
+                                          "id": 121,
+                                          "children": [
+                                            {
+                                              "type": "CallNode",
+                                              "id": 123,
+                                              "callee": "spill",
+                                              "children": [
+                                                {
+                                                  "type": "LiteralNode",
+                                                  "id": 122,
+                                                  "value": "6",
+                                                  "children": []
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "type": "IfNode",
+                                          "id": 128,
+                                          "children": [
+                                            {
+                                              "type": "BinOpNode",
+                                              "id": 126,
+                                              "op": "==",
+                                              "children": [
+                                                {
+                                                  "type": "IdentifierNode",
+                                                  "id": 125,
+                                                  "name": "t",
+                                                  "children": []
+                                                },
+                                                {
+                                                  "type": "LiteralNode",
+                                                  "id": 127,
+                                                  "value": "7",
+                                                  "children": []
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "type": "BlockNode",
+                                              "id": 129,
+                                              "children": [
+                                                {
+                                                  "type": "CallNode",
+                                                  "id": 131,
+                                                  "callee": "spill",
+                                                  "children": [
+                                                    {
+                                                      "type": "LiteralNode",
+                                                      "id": 130,
+                                                      "value": "7",
+                                                      "children": []
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "type": "IfNode",
+                                              "id": 136,
+                                              "children": [
+                                                {
+                                                  "type": "BinOpNode",
+                                                  "id": 134,
+                                                  "op": "==",
+                                                  "children": [
+                                                    {
+                                                      "type": "IdentifierNode",
+                                                      "id": 133,
+                                                      "name": "t",
+                                                      "children": []
+                                                    },
+                                                    {
+                                                      "type": "LiteralNode",
+                                                      "id": 135,
+                                                      "value": "8",
+                                                      "children": []
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "type": "BlockNode",
+                                                  "id": 137,
+                                                  "children": [
+                                                    {
+                                                      "type": "CallNode",
+                                                      "id": 139,
+                                                      "callee": "spill",
+                                                      "children": [
+                                                        {
+                                                          "type": "LiteralNode",
+                                                          "id": 138,
+                                                          "value": "8",
+                                                          "children": []
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "type": "IfNode",
+                                                  "id": 144,
+                                                  "children": [
+                                                    {
+                                                      "type": "BinOpNode",
+                                                      "id": 142,
+                                                      "op": "==",
+                                                      "children": [
+                                                        {
+                                                          "type": "IdentifierNode",
+                                                          "id": 141,
+                                                          "name": "t",
+                                                          "children": []
+                                                        },
+                                                        {
+                                                          "type": "LiteralNode",
+                                                          "id": 143,
+                                                          "value": "9",
+                                                          "children": []
+                                                        }
+                                                      ]
+                                                    },
+                                                    {
+                                                      "type": "BlockNode",
+                                                      "id": 145,
+                                                      "children": [
+                                                        {
+                                                          "type": "CallNode",
+                                                          "id": 147,
+                                                          "callee": "spill",
+                                                          "children": [
+                                                            {
+                                                              "type": "LiteralNode",
+                                                              "id": 146,
+                                                              "value": "9",
+                                                              "children": []
+                                                            }
+                                                          ]
+                                                        }
+                                                      ]
+                                                    },
+                                                    {
+                                                      "type": "IfNode",
+                                                      "id": 152,
+                                                      "children": [
+                                                        {
+                                                          "type": "BinOpNode",
+                                                          "id": 150,
+                                                          "op": "==",
+                                                          "children": [
+                                                            {
+                                                              "type": "IdentifierNode",
+                                                              "id": 149,
+                                                              "name": "t",
+                                                              "children": []
+                                                            },
+                                                            {
+                                                              "type": "LiteralNode",
+                                                              "id": 151,
+                                                              "value": "10",
+                                                              "children": []
+                                                            }
+                                                          ]
+                                                        },
+                                                        {
+                                                          "type": "BlockNode",
+                                                          "id": 153,
+                                                          "children": [
+                                                            {
+                                                              "type": "CallNode",
+                                                              "id": 155,
+                                                              "callee": "spill",
+                                                              "children": [
+                                                                {
+                                                                  "type": "LiteralNode",
+                                                                  "id": 154,
+                                                                  "value": "10",
+                                                                  "children": []
+                                                                }
+                                                              ]
+                                                            }
+                                                          ]
+                                                        },
+                                                        {
+                                                          "type": "IfNode",
+                                                          "id": 160,
+                                                          "children": [
+                                                            {
+                                                              "type": "BinOpNode",
+                                                              "id": 158,
+                                                              "op": "==",
+                                                              "children": [
+                                                                {
+                                                                  "type": "IdentifierNode",
+                                                                  "id": 157,
+                                                                  "name": "t",
+                                                                  "children": []
+                                                                },
+                                                                {
+                                                                  "type": "LiteralNode",
+                                                                  "id": 159,
+                                                                  "value": "11",
+                                                                  "children": []
+                                                                }
+                                                              ]
+                                                            },
+                                                            {
+                                                              "type": "BlockNode",
+                                                              "id": 161,
+                                                              "children": [
+                                                                {
+                                                                  "type": "CallNode",
+                                                                  "id": 163,
+                                                                  "callee": "spill",
+                                                                  "children": [
+                                                                    {
+                                                                      "type": "LiteralNode",
+                                                                      "id": 162,
+                                                                      "value": "11",
+                                                                      "children": []
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              ]
+                                                            },
+                                                            {
+                                                              "type": "IfNode",
+                                                              "id": 168,
+                                                              "children": [
+                                                                {
+                                                                  "type": "BinOpNode",
+                                                                  "id": 166,
+                                                                  "op": "==",
+                                                                  "children": [
+                                                                    {
+                                                                      "type": "IdentifierNode",
+                                                                      "id": 165,
+                                                                      "name": "t",
+                                                                      "children": []
+                                                                    },
+                                                                    {
+                                                                      "type": "LiteralNode",
+                                                                      "id": 167,
+                                                                      "value": "12",
+                                                                      "children": []
+                                                                    }
+                                                                  ]
+                                                                },
+                                                                {
+                                                                  "type": "BlockNode",
+                                                                  "id": 169,
+                                                                  "children": [
+                                                                    {
+                                                                      "type": "CallNode",
+                                                                      "id": 171,
+                                                                      "callee": "spill",
+                                                                      "children": [
+                                                                        {
+                                                                          "type": "LiteralNode",
+                                                                          "id": 170,
+                                                                          "value": "12",
+                                                                          "children": []
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  ]
+                                                                },
+                                                                {
+                                                                  "type": "IfNode",
+                                                                  "id": 176,
+                                                                  "children": [
+                                                                    {
+                                                                      "type": "BinOpNode",
+                                                                      "id": 174,
+                                                                      "op": "==",
+                                                                      "children": [
+                                                                        {
+                                                                          "type": "IdentifierNode",
+                                                                          "id": 173,
+                                                                          "name": "t",
+                                                                          "children": []
+                                                                        },
+                                                                        {
+                                                                          "type": "LiteralNode",
+                                                                          "id": 175,
+                                                                          "value": "13",
+                                                                          "children": []
+                                                                        }
+                                                                      ]
+                                                                    },
+                                                                    {
+                                                                      "type": "BlockNode",
+                                                                      "id": 177,
+                                                                      "children": [
+                                                                        {
+                                                                          "type": "CallNode",
+                                                                          "id": 179,
+                                                                          "callee": "spill",
+                                                                          "children": [
+                                                                            {
+                                                                              "type": "LiteralNode",
+                                                                              "id": 178,
+                                                                              "value": "13",
+                                                                              "children": []
+                                                                            }
+                                                                          ]
+                                                                        }
+                                                                      ]
+                                                                    },
+                                                                    {
+                                                                      "type": "IfNode",
+                                                                      "id": 184,
+                                                                      "children": [
+                                                                        {
+                                                                          "type": "BinOpNode",
+                                                                          "id": 182,
+                                                                          "op": "==",
+                                                                          "children": [
+                                                                            {
+                                                                              "type": "IdentifierNode",
+                                                                              "id": 181,
+                                                                              "name": "t",
+                                                                              "children": []
+                                                                            },
+                                                                            {
+                                                                              "type": "LiteralNode",
+                                                                              "id": 183,
+                                                                              "value": "14",
+                                                                              "children": []
+                                                                            }
+                                                                          ]
+                                                                        },
+                                                                        {
+                                                                          "type": "BlockNode",
+                                                                          "id": 185,
+                                                                          "children": [
+                                                                            {
+                                                                              "type": "CallNode",
+                                                                              "id": 187,
+                                                                              "callee": "spill",
+                                                                              "children": [
+                                                                                {
+                                                                                  "type": "LiteralNode",
+                                                                                  "id": 186,
+                                                                                  "value": "14",
+                                                                                  "children": []
+                                                                                }
+                                                                              ]
+                                                                            }
+                                                                          ]
+                                                                        },
+                                                                        {
+                                                                          "type": "IfNode",
+                                                                          "id": 192,
+                                                                          "children": [
+                                                                            {
+                                                                              "type": "BinOpNode",
+                                                                              "id": 190,
+                                                                              "op": "==",
+                                                                              "children": [
+                                                                                {
+                                                                                  "type": "IdentifierNode",
+                                                                                  "id": 189,
+                                                                                  "name": "t",
+                                                                                  "children": []
+                                                                                },
+                                                                                {
+                                                                                  "type": "LiteralNode",
+                                                                                  "id": 191,
+                                                                                  "value": "15",
+                                                                                  "children": []
+                                                                                }
+                                                                              ]
+                                                                            },
+                                                                            {
+                                                                              "type": "BlockNode",
+                                                                              "id": 193,
+                                                                              "children": [
+                                                                                {
+                                                                                  "type": "CallNode",
+                                                                                  "id": 195,
+                                                                                  "callee": "spill",
+                                                                                  "children": [
+                                                                                    {
+                                                                                      "type": "LiteralNode",
+                                                                                      "id": 194,
+                                                                                      "value": "15",
+                                                                                      "children": []
+                                                                                    }
+                                                                                  ]
+                                                                                }
+                                                                              ]
+                                                                            },
+                                                                            {
+                                                                              "type": "IfNode",
+                                                                              "id": 200,
+                                                                              "children": [
+                                                                                {
+                                                                                  "type": "BinOpNode",
+                                                                                  "id": 198,
+                                                                                  "op": "==",
+                                                                                  "children": [
+                                                                                    {
+                                                                                      "type": "IdentifierNode",
+                                                                                      "id": 197,
+                                                                                      "name": "t",
+                                                                                      "children": []
+                                                                                    },
+                                                                                    {
+                                                                                      "type": "LiteralNode",
+                                                                                      "id": 199,
+                                                                                      "value": "16",
+                                                                                      "children": []
+                                                                                    }
+                                                                                  ]
+                                                                                },
+                                                                                {
+                                                                                  "type": "BlockNode",
+                                                                                  "id": 201,
+                                                                                  "children": [
+                                                                                    {
+                                                                                      "type": "CallNode",
+                                                                                      "id": 203,
+                                                                                      "callee": "spill",
+                                                                                      "children": [
+                                                                                        {
+                                                                                          "type": "LiteralNode",
+                                                                                          "id": 202,
+                                                                                          "value": "16",
+                                                                                          "children": []
+                                                                                        }
+                                                                                      ]
+                                                                                    }
+                                                                                  ]
+                                                                                },
+                                                                                {
+                                                                                  "type": "IfNode",
+                                                                                  "id": 208,
+                                                                                  "children": [
+                                                                                    {
+                                                                                      "type": "BinOpNode",
+                                                                                      "id": 206,
+                                                                                      "op": "==",
+                                                                                      "children": [
+                                                                                        {
+                                                                                          "type": "IdentifierNode",
+                                                                                          "id": 205,
+                                                                                          "name": "t",
+                                                                                          "children": []
+                                                                                        },
+                                                                                        {
+                                                                                          "type": "LiteralNode",
+                                                                                          "id": 207,
+                                                                                          "value": "17",
+                                                                                          "children": []
+                                                                                        }
+                                                                                      ]
+                                                                                    },
+                                                                                    {
+                                                                                      "type": "BlockNode",
+                                                                                      "id": 209,
+                                                                                      "children": [
+                                                                                        {
+                                                                                          "type": "CallNode",
+                                                                                          "id": 211,
+                                                                                          "callee": "spill",
+                                                                                          "children": [
+                                                                                            {
+                                                                                              "type": "LiteralNode",
+                                                                                              "id": 210,
+                                                                                              "value": "17",
+                                                                                              "children": []
+                                                                                            }
+                                                                                          ]
+                                                                                        }
+                                                                                      ]
+                                                                                    },
+                                                                                    {
+                                                                                      "type": "IfNode",
+                                                                                      "id": 216,
+                                                                                      "children": [
+                                                                                        {
+                                                                                          "type": "BinOpNode",
+                                                                                          "id": 214,
+                                                                                          "op": "==",
+                                                                                          "children": [
+                                                                                            {
+                                                                                              "type": "IdentifierNode",
+                                                                                              "id": 213,
+                                                                                              "name": "t",
+                                                                                              "children": []
+                                                                                            },
+                                                                                            {
+                                                                                              "type": "LiteralNode",
+                                                                                              "id": 215,
+                                                                                              "value": "18",
+                                                                                              "children": []
+                                                                                            }
+                                                                                          ]
+                                                                                        },
+                                                                                        {
+                                                                                          "type": "BlockNode",
+                                                                                          "id": 217,
+                                                                                          "children": [
+                                                                                            {
+                                                                                              "type": "CallNode",
+                                                                                              "id": 219,
+                                                                                              "callee": "spill",
+                                                                                              "children": [
+                                                                                                {
+                                                                                                  "type": "LiteralNode",
+                                                                                                  "id": 218,
+                                                                                                  "value": "18",
+                                                                                                  "children": []
+                                                                                                }
+                                                                                              ]
+                                                                                            }
+                                                                                          ]
+                                                                                        },
+                                                                                        {
+                                                                                          "type": "IfNode",
+                                                                                          "id": 224,
+                                                                                          "children": [
+                                                                                            {
+                                                                                              "type": "BinOpNode",
+                                                                                              "id": 222,
+                                                                                              "op": "==",
+                                                                                              "children": [
+                                                                                                {
+                                                                                                  "type": "IdentifierNode",
+                                                                                                  "id": 221,
+                                                                                                  "name": "t",
+                                                                                                  "children": []
+                                                                                                },
+                                                                                                {
+                                                                                                  "type": "LiteralNode",
+                                                                                                  "id": 223,
+                                                                                                  "value": "19",
+                                                                                                  "children": []
+                                                                                                }
+                                                                                              ]
+                                                                                            },
+                                                                                            {
+                                                                                              "type": "BlockNode",
+                                                                                              "id": 225,
+                                                                                              "children": [
+                                                                                                {
+                                                                                                  "type": "CallNode",
+                                                                                                  "id": 227,
+                                                                                                  "callee": "spill",
+                                                                                                  "children": [
+                                                                                                    {
+                                                                                                      "type": "LiteralNode",
+                                                                                                      "id": 226,
+                                                                                                      "value": "19",
+                                                                                                      "children": []
+                                                                                                    }
+                                                                                                  ]
+                                                                                                }
+                                                                                              ]
+                                                                                            },
+                                                                                            {
+                                                                                              "type": "IfNode",
+                                                                                              "id": 232,
+                                                                                              "children": [
+                                                                                                {
+                                                                                                  "type": "BinOpNode",
+                                                                                                  "id": 230,
+                                                                                                  "op": "==",
+                                                                                                  "children": [
+                                                                                                    {
+                                                                                                      "type": "IdentifierNode",
+                                                                                                      "id": 229,
+                                                                                                      "name": "t",
+                                                                                                      "children": []
+                                                                                                    },
+                                                                                                    {
+                                                                                                      "type": "LiteralNode",
+                                                                                                      "id": 231,
+                                                                                                      "value": "20",
+                                                                                                      "children": []
+                                                                                                    }
+                                                                                                  ]
+                                                                                                },
+                                                                                                {
+                                                                                                  "type": "BlockNode",
+                                                                                                  "id": 233,
+                                                                                                  "children": [
+                                                                                                    {
+                                                                                                      "type": "CallNode",
+                                                                                                      "id": 235,
+                                                                                                      "callee": "spill",
+                                                                                                      "children": [
+                                                                                                        {
+                                                                                                          "type": "LiteralNode",
+                                                                                                          "id": 234,
+                                                                                                          "value": "20",
+                                                                                                          "children": []
+                                                                                                        }
+                                                                                                      ]
+                                                                                                    }
+                                                                                                  ]
+                                                                                                },
+                                                                                                {
+                                                                                                  "type": "IfNode",
+                                                                                                  "id": 240,
+                                                                                                  "children": [
+                                                                                                    {
+                                                                                                      "type": "BinOpNode",
+                                                                                                      "id": 238,
+                                                                                                      "op": "==",
+                                                                                                      "children": [
+                                                                                                        {
+                                                                                                          "type": "IdentifierNode",
+                                                                                                          "id": 237,
+                                                                                                          "name": "t",
+                                                                                                          "children": []
+                                                                                                        },
+                                                                                                        {
+                                                                                                          "type": "LiteralNode",
+                                                                                                          "id": 239,
+                                                                                                          "value": "21",
+                                                                                                          "children": []
+                                                                                                        }
+                                                                                                      ]
+                                                                                                    },
+                                                                                                    {
+                                                                                                      "type": "BlockNode",
+                                                                                                      "id": 241,
+                                                                                                      "children": [
+                                                                                                        {
+                                                                                                          "type": "CallNode",
+                                                                                                          "id": 243,
+                                                                                                          "callee": "spill",
+                                                                                                          "children": [
+                                                                                                            {
+                                                                                                              "type": "LiteralNode",
+                                                                                                              "id": 242,
+                                                                                                              "value": "21",
+                                                                                                              "children": []
+                                                                                                            }
+                                                                                                          ]
+                                                                                                        }
+                                                                                                      ]
+                                                                                                    },
+                                                                                                    {
+                                                                                                      "type": "IfNode",
+                                                                                                      "id": 248,
+                                                                                                      "children": [
+                                                                                                        {
+                                                                                                          "type": "BinOpNode",
+                                                                                                          "id": 246,
+                                                                                                          "op": "==",
+                                                                                                          "children": [
+                                                                                                            {
+                                                                                                              "type": "IdentifierNode",
+                                                                                                              "id": 245,
+                                                                                                              "name": "t",
+                                                                                                              "children": []
+                                                                                                            },
+                                                                                                            {
+                                                                                                              "type": "LiteralNode",
+                                                                                                              "id": 247,
+                                                                                                              "value": "22",
+                                                                                                              "children": []
+                                                                                                            }
+                                                                                                          ]
+                                                                                                        },
+                                                                                                        {
+                                                                                                          "type": "BlockNode",
+                                                                                                          "id": 249,
+                                                                                                          "children": [
+                                                                                                            {
+                                                                                                              "type": "CallNode",
+                                                                                                              "id": 251,
+                                                                                                              "callee": "spill",
+                                                                                                              "children": [
+                                                                                                                {
+                                                                                                                  "type": "LiteralNode",
+                                                                                                                  "id": 250,
+                                                                                                                  "value": "22",
+                                                                                                                  "children": []
+                                                                                                                }
+                                                                                                              ]
+                                                                                                            }
+                                                                                                          ]
+                                                                                                        },
+                                                                                                        {
+                                                                                                          "type": "IfNode",
+                                                                                                          "id": 256,
+                                                                                                          "children": [
+                                                                                                            {
+                                                                                                              "type": "BinOpNode",
+                                                                                                              "id": 254,
+                                                                                                              "op": "==",
+                                                                                                              "children": [
+                                                                                                                {
+                                                                                                                  "type": "IdentifierNode",
+                                                                                                                  "id": 253,
+                                                                                                                  "name": "t",
+                                                                                                                  "children": []
+                                                                                                                },
+                                                                                                                {
+                                                                                                                  "type": "LiteralNode",
+                                                                                                                  "id": 255,
+                                                                                                                  "value": "23",
+                                                                                                                  "children": []
+                                                                                                                }
+                                                                                                              ]
+                                                                                                            },
+                                                                                                            {
+                                                                                                              "type": "BlockNode",
+                                                                                                              "id": 257,
+                                                                                                              "children": [
+                                                                                                                {
+                                                                                                                  "type": "CallNode",
+                                                                                                                  "id": 259,
+                                                                                                                  "callee": "spill",
+                                                                                                                  "children": [
+                                                                                                                    {
+                                                                                                                      "type": "LiteralNode",
+                                                                                                                      "id": 258,
+                                                                                                                      "value": "23",
+                                                                                                                      "children": []
+                                                                                                                    }
+                                                                                                                  ]
+                                                                                                                }
+                                                                                                              ]
+                                                                                                            },
+                                                                                                            {
+                                                                                                              "type": "IfNode",
+                                                                                                              "id": 264,
+                                                                                                              "children": [
+                                                                                                                {
+                                                                                                                  "type": "BinOpNode",
+                                                                                                                  "id": 262,
+                                                                                                                  "op": "==",
+                                                                                                                  "children": [
+                                                                                                                    {
+                                                                                                                      "type": "IdentifierNode",
+                                                                                                                      "id": 261,
+                                                                                                                      "name": "t",
+                                                                                                                      "children": []
+                                                                                                                    },
+                                                                                                                    {
+                                                                                                                      "type": "LiteralNode",
+                                                                                                                      "id": 263,
+                                                                                                                      "value": "24",
+                                                                                                                      "children": []
+                                                                                                                    }
+                                                                                                                  ]
+                                                                                                                },
+                                                                                                                {
+                                                                                                                  "type": "BlockNode",
+                                                                                                                  "id": 265,
+                                                                                                                  "children": [
+                                                                                                                    {
+                                                                                                                      "type": "CallNode",
+                                                                                                                      "id": 267,
+                                                                                                                      "callee": "spill",
+                                                                                                                      "children": [
+                                                                                                                        {
+                                                                                                                          "type": "LiteralNode",
+                                                                                                                          "id": 266,
+                                                                                                                          "value": "24",
+                                                                                                                          "children": []
+                                                                                                                        }
+                                                                                                                      ]
+                                                                                                                    }
+                                                                                                                  ]
+                                                                                                                },
+                                                                                                                {
+                                                                                                                  "type": "BlockNode",
+                                                                                                                  "id": 268,
+                                                                                                                  "children": [
+                                                                                                                    {
+                                                                                                                      "type": "CallNode",
+                                                                                                                      "id": 270,
+                                                                                                                      "callee": "spill",
+                                                                                                                      "children": [
+                                                                                                                        {
+                                                                                                                          "type": "LiteralNode",
+                                                                                                                          "id": 269,
+                                                                                                                          "value": "25",
+                                                                                                                          "children": []
+                                                                                                                        }
+                                                                                                                      ]
+                                                                                                                    }
+                                                                                                                  ]
+                                                                                                                }
+                                                                                                              ]
+                                                                                                            }
+                                                                                                          ]
+                                                                                                        }
+                                                                                                      ]
+                                                                                                    }
+                                                                                                  ]
+                                                                                                }
+                                                                                              ]
+                                                                                            }
+                                                                                          ]
+                                                                                        }
+                                                                                      ]
+                                                                                    }
+                                                                                  ]
+                                                                                }
+                                                                              ]
+                                                                            }
+                                                                          ]
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              ]
+                                                            }
+                                                          ]
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
               "type": "ReturnNode",
-              "id": 23,
+              "id": 271,
               "kind": "sleepWithTheFishes",
               "children": []
             }

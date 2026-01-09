@@ -27,7 +27,7 @@ public class Lexer {
             Map.entry("sendWord", TokenType.SENDWORD),
             Map.entry("forgetAboutIt", TokenType.FORGETABOUTIT),
             Map.entry("check", TokenType.CHECK),
-            Map.entry("planB", TokenType.PLANB),
+            Map.entry("plan", TokenType.PLAN),
             Map.entry("runTheBooks", TokenType.RUNTHEBOOKS),
             Map.entry("snitch", TokenType.SNITCH),
             Map.entry("spill", TokenType.SPILL),
@@ -157,7 +157,19 @@ public class Lexer {
         while (isIdentPart(sc.peek())) sc.advance();
         String text = source.substring(startIdx, sc.getCur());
 
-        TokenType type = KEYWORDS.getOrDefault(text, TokenType.IDENTIFIER);
+        TokenType type;
+
+        if (text.length() == 5 &&
+                text.startsWith("plan") &&
+                text.charAt(4) >= 'B' &&
+                text.charAt(4) <= 'Z') {
+
+            type = TokenType.PLAN;
+
+        } else {
+            type = KEYWORDS.getOrDefault(text, TokenType.IDENTIFIER);
+        }
+
         add(type, text);
     }
 
