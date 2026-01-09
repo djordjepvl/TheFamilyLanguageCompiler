@@ -2,7 +2,9 @@ package intermediate;
 
 import parser.*;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class JasminVisitor implements Visitor<String> {
@@ -190,19 +192,31 @@ public class JasminVisitor implements Visitor<String> {
     public String visitBinary(BinOpNode n) {
         String left = n.getChildren().get(0).accept(this);
         String right = n.getChildren().get(1).accept(this);
-        if (n.op.equals(">") || n.op.equals("==")) {
-            String instr = n.op.equals(">") ? "if_icmpgt" : "if_icmpeq";
+        List<String> relationalOps = Arrays.asList("==", "!=", "<", ">", "<=", ">=");
+
+        if (relationalOps.contains(n.op)) {
+            String instr = switch (n.op) {
+                case "==" -> "if_icmpeq";
+                case "!=" -> "if_icmpne";
+                case "<"  -> "if_icmplt";
+                case ">"  -> "if_icmpgt";
+                case "<=" -> "if_icmple";
+                case ">=" -> "if_icmpge";
+                default   -> "";
+            };
+
             String trueLabel = "cmp_true_" + labelCount++;
             String endLabel = "cmp_end_" + labelCount++;
 
             return left + right +
-                    "    " + instr + " " + trueLabel + "\n" +
-                    "    iconst_0\n" +
-                    "    goto " + endLabel + "\n" +
+                    instr + " " + trueLabel + "\n" +
+                    "iconst_0\n" +
+                    "goto " + endLabel + "\n" +
                     trueLabel + ":\n" +
-                    "    iconst_1\n" +
+                    "iconst_1\n" +
                     endLabel + ":\n";
         }
+
         String type = n.getType();
         String prefix = "SLICE".equals(type) ? "f" : "i";
         String op = switch (n.op) {

@@ -9,13 +9,11 @@ theSitDown() {
     check (t == 100) {
         spill(b);
     }
-    planB (t == 90) {
+    planB (t >= 115) {
         spill($$Nothin$$);
     }
-    planC (t == 115) {
+    planC  {
         spill(c);
-    } planD (t==115) {
-        spill(a);
     }
 
     sleepWithTheFishes;

@@ -29,11 +29,11 @@
     invokevirtual java/io/PrintStream/println(I)V
     iload 1
     ldc 100
-    if_icmpeq cmp_true_2
-    iconst_0
-    goto cmp_end_3
+if_icmpeq cmp_true_2
+iconst_0
+goto cmp_end_3
 cmp_true_2:
-    iconst_1
+iconst_1
 cmp_end_3:
     ifeq else_0
     getstatic java/lang/System/out Ljava/io/PrintStream;
@@ -42,12 +42,12 @@ cmp_end_3:
     goto end_if_1
 else_0:
     iload 1
-    ldc 90
-    if_icmpeq cmp_true_6
-    iconst_0
-    goto cmp_end_7
+    ldc 115
+if_icmpge cmp_true_6
+iconst_0
+goto cmp_end_7
 cmp_true_6:
-    iconst_1
+iconst_1
 cmp_end_7:
     ifeq else_4
     getstatic java/lang/System/out Ljava/io/PrintStream;
@@ -55,36 +55,9 @@ cmp_end_7:
     invokevirtual java/io/PrintStream/println(Ljava/lang/String;)V
     goto end_if_5
 else_4:
-    iload 1
-    ldc 115
-    if_icmpeq cmp_true_10
-    iconst_0
-    goto cmp_end_11
-cmp_true_10:
-    iconst_1
-cmp_end_11:
-    ifeq else_8
     getstatic java/lang/System/out Ljava/io/PrintStream;
     aload 5
     invokevirtual java/io/PrintStream/println(Ljava/lang/String;)V
-    goto end_if_9
-else_8:
-    iload 1
-    ldc 115
-    if_icmpeq cmp_true_14
-    iconst_0
-    goto cmp_end_15
-cmp_true_14:
-    iconst_1
-cmp_end_15:
-    ifeq else_12
-    getstatic java/lang/System/out Ljava/io/PrintStream;
-    aload 3
-    invokevirtual java/io/PrintStream/println(Ljava/lang/String;)V
-    goto end_if_13
-else_12:
-end_if_13:
-end_if_9:
 end_if_5:
 end_if_1:
     return

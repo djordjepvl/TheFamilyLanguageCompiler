@@ -1,5 +1,5 @@
 ProgramNode#1
-  MainNode#59 [VOID]
+  MainNode#45 [VOID]
     BlockNode#2 [VOID]
       VarDeclNode#3 [VOID](cash t)
         LiteralNode#4 [CASH](115)
@@ -28,24 +28,13 @@ ProgramNode#1
           CallNode#31 [VOID](spill)
             IdentifierNode#30 [ASSOCIATE](b)
         IfNode#36 [VOID]
-          BinOpNode#34 [DOSSIER](==)
+          BinOpNode#34 [DOSSIER](>=)
             IdentifierNode#33 [CASH](t)
-            LiteralNode#35 [CASH](90)
+            LiteralNode#35 [CASH](115)
           BlockNode#37 [VOID]
             CallNode#39 [VOID](spill)
               LiteralNode#38 [ASSOCIATE]($$Nothin$$)
-          IfNode#44 [VOID]
-            BinOpNode#42 [DOSSIER](==)
-              IdentifierNode#41 [CASH](t)
-              LiteralNode#43 [CASH](115)
-            BlockNode#45 [VOID]
-              CallNode#48 [VOID](spill)
-                IdentifierNode#47 [ASSOCIATE](c)
-            IfNode#53 [VOID]
-              BinOpNode#51 [DOSSIER](==)
-                IdentifierNode#50 [CASH](t)
-                LiteralNode#52 [CASH](115)
-              BlockNode#54 [VOID]
-                CallNode#57 [VOID](spill)
-                  IdentifierNode#56 [ASSOCIATE](a)
-      ReturnNode#58 [VOID](sleepWithTheFishes)
+          BlockNode#40 [VOID]
+            CallNode#43 [VOID](spill)
+              IdentifierNode#42 [ASSOCIATE](c)
+      ReturnNode#44 [VOID](sleepWithTheFishes)
