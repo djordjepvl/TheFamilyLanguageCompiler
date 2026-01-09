@@ -104,7 +104,24 @@ public class JasminVisitor implements Visitor<String> {
 
     @Override
     public String visitLiteral(LiteralNode n) {
-        return "    ldc " + n.value + "\n";
+        String type = n.getType();
+        String val = n.value;
+        return switch (type) {
+            case "ASSOCIATE" -> {
+                String content = val.substring(2, val.length() - 2);
+                yield "    ldc \"" + content + "\"\n";
+            }
+            case "SLICE" -> "    ldc " + val + "\n";
+            case "DOSSIER" -> {
+                int boolVal = val.equals("alive") ? 1 : 0;
+                yield "    iconst_" + boolVal + "\n";
+            }
+            case "MARK" -> {
+                char c = val.charAt(1);
+                yield "    ldc " + (int) c + "\n";
+            }
+            default -> "    ldc " + val + "\n";
+        };
     }
 
     @Override
@@ -117,9 +134,19 @@ public class JasminVisitor implements Visitor<String> {
         String left = n.getChildren().get(0).accept(this);
         String right = n.getChildren().get(1).accept(this);
 
-        String op = "    iadd\n";
+        String type = n.getType();
+        String prefix = "SLICE".equals(type) ? "f" : "i";
 
-        return left + right + op;
+        String op = switch (n.op) {
+            case "+" -> "add";
+            case "-" -> "sub";
+            case "*" -> "mul";
+            case "/" -> "div";
+            case "%" -> "rem";
+            default  -> "add";
+        };
+
+        return left + right + "    " + prefix + op + "\n";
     }
 
     @Override

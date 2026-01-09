@@ -1,7 +1,8 @@
 ProgramNode#1
-  MainNode#7
-    BlockNode#2
-      ExprStmtNode#6
-        BinOpNode#4(+)
-          LiteralNode#3(6)
-          LiteralNode#5(9)
+  MainNode#8 [VOID]
+    BlockNode#2 [VOID]
+      ExprStmtNode#6 [VOID]
+        BinOpNode#4 [SLICE](+)
+          LiteralNode#3 [SLICE](0.43024)
+          LiteralNode#5 [SLICE](324.0234)
+      ReturnNode#7 [VOID](sleepWithTheFishes)

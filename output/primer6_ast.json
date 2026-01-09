@@ -4,7 +4,7 @@
   "children": [
     {
       "type": "MainNode",
-      "id": 7,
+      "id": 8,
       "children": [
         {
           "type": "BlockNode",
@@ -22,18 +22,24 @@
                     {
                       "type": "LiteralNode",
                       "id": 3,
-                      "value": "6",
+                      "value": "0.43024",
                       "children": []
                     },
                     {
                       "type": "LiteralNode",
                       "id": 5,
-                      "value": "9",
+                      "value": "324.0234",
                       "children": []
                     }
                   ]
                 }
               ]
+            },
+            {
+              "type": "ReturnNode",
+              "id": 7,
+              "kind": "sleepWithTheFishes",
+              "children": []
             }
           ]
         }

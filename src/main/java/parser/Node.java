@@ -8,6 +8,11 @@ public abstract class Node {
 
     public final int id = GEN.getAndIncrement();
 
+    private String type;
+
+    public String getType() { return type; }
+    public void setType(String type) { this.type = type; }
+
     protected final List<Node> children = new ArrayList<>();
 
     // --- child helpers ---
@@ -92,7 +97,11 @@ public abstract class Node {
 
     /** Možeš po želji da vratiš bogatiji label (npr. uključiti ime/op/vrednost) */
     protected String debugLabel() {
-        return getClass().getSimpleName() + "#" + id;
+        String label = getClass().getSimpleName() + "#" + id;
+        if (type != null) {
+            label += " [" + type + "]";
+        }
+        return label;
     }
 
     @Override public String toString() { return debugLabel(); }

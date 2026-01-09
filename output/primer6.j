@@ -10,8 +10,9 @@
 .method public static main([Ljava/lang/String;)V
     .limit stack 10
     .limit locals 10
-    ldc 6
-    ldc 9
-    iadd
+    ldc 0.43024
+    ldc 324.0234
+    fadd
     pop
+    return
 .end method

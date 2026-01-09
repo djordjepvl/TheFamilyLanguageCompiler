@@ -50,25 +50,29 @@ public class SemanticAnalyzer {
     }
 
     private TypeRef analyzeNode(Node n) {
-        if (n instanceof ProgramNode) return analyzeProgram((ProgramNode) n);
-        if (n instanceof MainNode) return analyzeMain((MainNode) n);
-        if (n instanceof FuncDeclNode) return analyzeFunc((FuncDeclNode) n);
-        if (n instanceof BlockNode) return analyzeBlock((BlockNode) n);
-        if (n instanceof VarDeclNode) return analyzeVarDecl((VarDeclNode) n);
-        if (n instanceof ExprStmtNode) return analyzeExprStmt((ExprStmtNode) n);
-        if (n instanceof IfNode) return analyzeIf((IfNode) n);
-        if (n instanceof ForNode) return analyzeFor((ForNode) n);
-        if (n instanceof ReturnNode) return analyzeReturn((ReturnNode) n);
-        if (n instanceof AssignNode) return analyzeAssign((AssignNode) n);
-        if (n instanceof BinOpNode) return analyzeBinOp((BinOpNode) n);
-        if (n instanceof UnaryOpNode) return analyzeUnary((UnaryOpNode) n);
-        if (n instanceof LiteralNode) return analyzeLiteral((LiteralNode) n);
-        if (n instanceof IdentifierNode) return analyzeIdentifier((IdentifierNode) n);
-        if (n instanceof CallNode) return analyzeCall((CallNode) n);
-        if (n instanceof IndexNode) return analyzeIndex((IndexNode) n);
-        if (n instanceof ArraySizeNode) return analyzeArraySize((ArraySizeNode) n);
-        if (n instanceof CastNode) return analyzeCast((CastNode) n);
-        return TypeRef.of(Type.ERROR);
+        TypeRef res = switch (n) {
+            case ProgramNode p -> analyzeProgram(p);
+            case MainNode m -> analyzeMain(m);
+            case FuncDeclNode fn -> analyzeFunc(fn);
+            case BlockNode b -> analyzeBlock(b);
+            case VarDeclNode v -> analyzeVarDecl(v);
+            case ExprStmtNode s -> analyzeExprStmt(s);
+            case IfNode i -> analyzeIf(i);
+            case ForNode f -> analyzeFor(f);
+            case ReturnNode r -> analyzeReturn(r);
+            case AssignNode a -> analyzeAssign(a);
+            case BinOpNode b -> analyzeBinOp(b);
+            case UnaryOpNode u -> analyzeUnary(u);
+            case LiteralNode l -> analyzeLiteral(l);
+            case IdentifierNode id -> analyzeIdentifier(id);
+            case CallNode c -> analyzeCall(c);
+            case IndexNode idx -> analyzeIndex(idx);
+            case ArraySizeNode asz -> analyzeArraySize(asz);
+            case CastNode cst -> analyzeCast(cst);
+            default -> TypeRef.of(Type.ERROR);
+        };
+        if (n!= null) n.setType(res.toString());
+        return res;
     }
 
     private TypeRef analyzeProgram(ProgramNode p) {
