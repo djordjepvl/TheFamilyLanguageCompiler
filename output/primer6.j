@@ -65,6 +65,40 @@ else_2:
     invokevirtual java/io/PrintStream/println(Ljava/lang/String;)V
 end_if_3:
 end_if_1:
+    ldc 0
+    istore 7
+for_start_6:
+    iload 7
+    ldc 4
+if_icmplt cmp_true_8
+iconst_0
+goto cmp_end_9
+cmp_true_8:
+iconst_1
+cmp_end_9:
+    ifeq for_end_7
+    iload 7
+    ldc 2
+    irem
+    ldc 0
+if_icmpeq cmp_true_10
+iconst_0
+goto cmp_end_11
+cmp_true_10:
+iconst_1
+cmp_end_11:
+    istore 8
+    getstatic java/lang/System/out Ljava/io/PrintStream;
+    iload 7
+    invokevirtual java/io/PrintStream/println(I)V
+    iload 7
+    ldc 1
+    iadd
+    dup
+    istore 7
+    pop
+    goto for_start_6
+for_end_7:
     return
     return
 .end method

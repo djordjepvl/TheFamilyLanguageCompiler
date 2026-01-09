@@ -113,7 +113,19 @@ public class JasminVisitor implements Visitor<String> {
 
     @Override
     public String visitFor(ForNode n) {
-        return "";
+        String labelStart = "for_start_" + labelCount++;
+        String labelEnd = "for_end_" + labelCount++;
+        StringBuilder sb = new StringBuilder();
+        sb.append(n.getChildren().get(0).accept(this));
+        sb.append(labelStart).append(":\n");
+        sb.append(n.getChildren().get(1).accept(this));
+        sb.append("    ifeq ").append(labelEnd).append("\n");
+        sb.append(n.getChildren().get(3).accept(this));
+        sb.append(n.getChildren().get(2).accept(this));
+        sb.append("    pop\n");
+        sb.append("    goto ").append(labelStart).append("\n");
+        sb.append(labelEnd).append(":\n");
+        return sb.toString();
     }
 
     @Override

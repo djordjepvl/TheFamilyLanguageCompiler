@@ -17,5 +17,10 @@ theSitDown() {
         spill(c);
     }
 
+    runTheBooks (cash i = 0; i < 4; i = i + 1) {
+            dossier even = i % 2 == 0;
+            spill(even);
+    }
+
     sleepWithTheFishes;
 }

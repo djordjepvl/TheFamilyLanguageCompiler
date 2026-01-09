@@ -4,7 +4,7 @@
   "children": [
     {
       "type": "MainNode",
-      "id": 46,
+      "id": 70,
       "children": [
         {
           "type": "BlockNode",
@@ -253,8 +253,137 @@
               ]
             },
             {
+              "type": "ForNode",
+              "id": 68,
+              "children": [
+                {
+                  "type": "VarDeclNode",
+                  "id": 45,
+                  "type": "cash",
+                  "name": "i",
+                  "children": [
+                    {
+                      "type": "LiteralNode",
+                      "id": 46,
+                      "value": "0",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "type": "BinOpNode",
+                  "id": 49,
+                  "op": "<",
+                  "children": [
+                    {
+                      "type": "IdentifierNode",
+                      "id": 48,
+                      "name": "i",
+                      "children": []
+                    },
+                    {
+                      "type": "LiteralNode",
+                      "id": 50,
+                      "value": "4",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "type": "AssignNode",
+                  "id": 56,
+                  "children": [
+                    {
+                      "type": "IdentifierNode",
+                      "id": 51,
+                      "name": "i",
+                      "children": []
+                    },
+                    {
+                      "type": "BinOpNode",
+                      "id": 54,
+                      "op": "+",
+                      "children": [
+                        {
+                          "type": "IdentifierNode",
+                          "id": 53,
+                          "name": "i",
+                          "children": []
+                        },
+                        {
+                          "type": "LiteralNode",
+                          "id": 55,
+                          "value": "1",
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "BlockNode",
+                  "id": 57,
+                  "children": [
+                    {
+                      "type": "VarDeclNode",
+                      "id": 58,
+                      "type": "dossier",
+                      "name": "even",
+                      "children": [
+                        {
+                          "type": "BinOpNode",
+                          "id": 63,
+                          "op": "==",
+                          "children": [
+                            {
+                              "type": "BinOpNode",
+                              "id": 61,
+                              "op": "%",
+                              "children": [
+                                {
+                                  "type": "IdentifierNode",
+                                  "id": 60,
+                                  "name": "i",
+                                  "children": []
+                                },
+                                {
+                                  "type": "LiteralNode",
+                                  "id": 62,
+                                  "value": "2",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "type": "LiteralNode",
+                              "id": 64,
+                              "value": "0",
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "CallNode",
+                      "id": 67,
+                      "callee": "spill",
+                      "children": [
+                        {
+                          "type": "IdentifierNode",
+                          "id": 66,
+                          "name": "i",
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
               "type": "ReturnNode",
-              "id": 45,
+              "id": 69,
               "kind": "sleepWithTheFishes",
               "children": []
             }
