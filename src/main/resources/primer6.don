@@ -1,7 +1,7 @@
 theSitDown() {
     cash t = 115;
-    slice g = 230.4;
-    g = (slice) t + 493.4;
+    slice g = (slice) t + 493.4;
+    t = (cash) g;
     associate a = $$Silivio Dante$$;
     dossier m = whacked;
     associate b = $$Paulie “Walnuts” Gualtieri$$;

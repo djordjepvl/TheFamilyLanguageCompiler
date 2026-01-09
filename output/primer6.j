@@ -18,11 +18,15 @@
     putstatic primer6/scanner Ljava/util/Scanner;
     ldc 115
     istore 1
-    ldc 230.4
+    iload 1
+    i2f
+    ldc 493.4
+    fadd
     fstore 2
     fload 2
+    f2i
     dup
-    fstore 2
+    istore 1
     pop
     ldc "Silivio Dante"
     astore 3

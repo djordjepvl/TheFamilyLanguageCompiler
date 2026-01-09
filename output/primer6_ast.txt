@@ -1,40 +1,41 @@
 ProgramNode#1
-  MainNode#45 [VOID]
+  MainNode#46 [VOID]
     BlockNode#2 [VOID]
       VarDeclNode#3 [VOID](cash t)
         LiteralNode#4 [CASH](115)
       VarDeclNode#5 [VOID](slice g)
-        LiteralNode#6 [SLICE](230.4)
-      ExprStmtNode#13 [VOID]
-        AssignNode#12 [SLICE]
-          IdentifierNode#7 [SLICE](g)
-          BinOpNode#10 [SLICE](+)
-            CastNode#9 [SLICE](slice)
-              IdentifierNode#8 [CASH](t)
-            LiteralNode#11 [SLICE](493.4)
-      VarDeclNode#14 [VOID](associate a)
-        LiteralNode#15 [ASSOCIATE]($$Silivio Dante$$)
-      VarDeclNode#16 [VOID](dossier m)
-        LiteralNode#17 [DOSSIER](whacked)
-      VarDeclNode#18 [VOID](associate b)
-        LiteralNode#19 [ASSOCIATE]($$Paulie “Walnuts” Gualtieri$$)
-      VarDeclNode#20 [VOID](associate c)
-        LiteralNode#21 [ASSOCIATE]($$Tony Soprano$$)
-      CallNode#24 [VOID](spill)
-        IdentifierNode#23 [CASH](t)
-      IfNode#27 [VOID]
-        IdentifierNode#26 [DOSSIER](m)
-        BlockNode#28 [VOID]
-          CallNode#31 [VOID](spill)
-            IdentifierNode#30 [ASSOCIATE](b)
-        IfNode#36 [VOID]
-          BinOpNode#34 [DOSSIER](>=)
-            IdentifierNode#33 [CASH](t)
-            LiteralNode#35 [CASH](115)
-          BlockNode#37 [VOID]
-            CallNode#39 [VOID](spill)
-              LiteralNode#38 [ASSOCIATE]($$Nothin$$)
-          BlockNode#40 [VOID]
-            CallNode#43 [VOID](spill)
-              IdentifierNode#42 [ASSOCIATE](c)
-      ReturnNode#44 [VOID](sleepWithTheFishes)
+        BinOpNode#8 [SLICE](+)
+          CastNode#7 [SLICE](slice)
+            IdentifierNode#6 [CASH](t)
+          LiteralNode#9 [SLICE](493.4)
+      ExprStmtNode#14 [VOID]
+        AssignNode#13 [CASH]
+          IdentifierNode#10 [CASH](t)
+          CastNode#12 [CASH](cash)
+            IdentifierNode#11 [SLICE](g)
+      VarDeclNode#15 [VOID](associate a)
+        LiteralNode#16 [ASSOCIATE]($$Silivio Dante$$)
+      VarDeclNode#17 [VOID](dossier m)
+        LiteralNode#18 [DOSSIER](whacked)
+      VarDeclNode#19 [VOID](associate b)
+        LiteralNode#20 [ASSOCIATE]($$Paulie “Walnuts” Gualtieri$$)
+      VarDeclNode#21 [VOID](associate c)
+        LiteralNode#22 [ASSOCIATE]($$Tony Soprano$$)
+      CallNode#25 [VOID](spill)
+        IdentifierNode#24 [CASH](t)
+      IfNode#28 [VOID]
+        IdentifierNode#27 [DOSSIER](m)
+        BlockNode#29 [VOID]
+          CallNode#32 [VOID](spill)
+            IdentifierNode#31 [ASSOCIATE](b)
+        IfNode#37 [VOID]
+          BinOpNode#35 [DOSSIER](>=)
+            IdentifierNode#34 [CASH](t)
+            LiteralNode#36 [CASH](115)
+          BlockNode#38 [VOID]
+            CallNode#40 [VOID](spill)
+              LiteralNode#39 [ASSOCIATE]($$Nothin$$)
+          BlockNode#41 [VOID]
+            CallNode#44 [VOID](spill)
+              IdentifierNode#43 [ASSOCIATE](c)
+      ReturnNode#45 [VOID](sleepWithTheFishes)

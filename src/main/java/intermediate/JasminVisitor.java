@@ -18,9 +18,9 @@ public class JasminVisitor implements Visitor<String> {
 
     private String getInstrPrefix(String type) {
         return switch (type) {
-            case "SLICE"     -> "f"; // Floats
-            case "ASSOCIATE" -> "a"; // Objects (Strings)
-            default          -> "i"; // CASH, MARK, DOSSIER (all treated as ints)
+            case "SLICE"     -> "f";
+            case "ASSOCIATE" -> "a";
+            default          -> "i";
         };
     }
 
@@ -39,7 +39,6 @@ public class JasminVisitor implements Visitor<String> {
         StringBuilder sb = new StringBuilder();
         sb.append(header).append(constructor);
 
-        // Visit EVERY child to ensure the main method and any functions are included
         for (Node child : n.getChildren()) {
             sb.append(child.accept(this));
         }
@@ -121,7 +120,7 @@ public class JasminVisitor implements Visitor<String> {
     public String visitReturn(ReturnNode n) {
         String expr = "";
         if (!n.getChildren().isEmpty()) {
-            expr = n.getChildren().get(0).accept(this);
+            expr = n.getChildren().getFirst().accept(this);
         }
         return expr + "    return\n";
     }
@@ -134,10 +133,15 @@ public class JasminVisitor implements Visitor<String> {
 
     @Override
     public String visitAssign(AssignNode n) {
-        Node rhs = n.getChildren().getFirst();
-        String valueCode = rhs.accept(this);
-        IdentifierNode idNode = (IdentifierNode) n.getChildren().getFirst();
+        // Usually: index 0 is the variable, index 1 is the value expression
+        Node lhs = n.getChildren().get(0);
+        Node rhs = n.getChildren().get(1);
+
+        String valueCode = rhs.accept(this); // This will now correctly trigger visitCast
+
+        IdentifierNode idNode = (IdentifierNode) lhs;
         int index = varMap.get(idNode.name);
+
         String prefix = getInstrPrefix(rhs.getType());
         return valueCode +
                 "    dup\n" +
@@ -285,6 +289,20 @@ public class JasminVisitor implements Visitor<String> {
 
     @Override
     public String visitCast(CastNode n) {
-        return "";
+        String exprCode = n.getChildren().getFirst().accept(this);
+        String sourceType = n.getChildren().getFirst().getType();
+        String targetType = n.getType();
+
+        if (sourceType.equals(targetType)) return exprCode;
+
+        String castInstr = switch (sourceType + "2" + targetType) {
+            case "CASH2SLICE" -> "i2f";
+            case "SLICE2CASH" -> "f2i";
+            case "MARK2CASH"  -> "";
+            case "CASH2MARK"  -> "i2c";
+            default           -> "";
+        };
+
+        return exprCode + "    " + castInstr + "\n";
     }
 }
