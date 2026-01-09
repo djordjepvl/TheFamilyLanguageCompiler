@@ -99,13 +99,13 @@
             {
               "type": "VarDeclNode",
               "id": 16,
-              "type": "associate",
-              "name": "b",
+              "type": "dossier",
+              "name": "m",
               "children": [
                 {
                   "type": "LiteralNode",
                   "id": 17,
-                  "value": "$$Paulie “Walnuts” Gualtieri$$",
+                  "value": "whacked",
                   "children": []
                 }
               ]
@@ -114,11 +114,25 @@
               "type": "VarDeclNode",
               "id": 18,
               "type": "associate",
-              "name": "c",
+              "name": "b",
               "children": [
                 {
                   "type": "LiteralNode",
                   "id": 19,
+                  "value": "$$Paulie “Walnuts” Gualtieri$$",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "VarDeclNode",
+              "id": 20,
+              "type": "associate",
+              "name": "c",
+              "children": [
+                {
+                  "type": "LiteralNode",
+                  "id": 21,
                   "value": "$$Tony Soprano$$",
                   "children": []
                 }
@@ -126,12 +140,12 @@
             },
             {
               "type": "CallNode",
-              "id": 22,
+              "id": 24,
               "callee": "spill",
               "children": [
                 {
                   "type": "IdentifierNode",
-                  "id": 21,
+                  "id": 23,
                   "name": "t",
                   "children": []
                 }
@@ -142,23 +156,10 @@
               "id": 27,
               "children": [
                 {
-                  "type": "BinOpNode",
-                  "id": 25,
-                  "op": "==",
-                  "children": [
-                    {
-                      "type": "IdentifierNode",
-                      "id": 24,
-                      "name": "t",
-                      "children": []
-                    },
-                    {
-                      "type": "LiteralNode",
-                      "id": 26,
-                      "value": "100",
-                      "children": []
-                    }
-                  ]
+                  "type": "IdentifierNode",
+                  "id": 26,
+                  "name": "m",
+                  "children": []
                 },
                 {
                   "type": "BlockNode",

@@ -27,25 +27,44 @@ public class JasminVisitor implements Visitor<String> {
     @Override
     public String visitProgram(ProgramNode n) {
         String header = ".class public " + this.className + "\n"
-                + ".super java/lang/Object\n\n";
+                + ".super java/lang/Object\n"
+                + ".field private static scanner Ljava/util/Scanner;\n\n";
+
         String constructor = ".method public <init>()V\n"
                 + "    aload_0\n"
                 + "    invokespecial java/lang/Object/<init>()V\n"
                 + "    return\n"
                 + ".end method\n\n";
-        Node mainNode = n.getChildren().getFirst();
-        return header + constructor + mainNode.accept(this);
+
+        StringBuilder sb = new StringBuilder();
+        sb.append(header).append(constructor);
+
+        // Visit EVERY child to ensure the main method and any functions are included
+        for (Node child : n.getChildren()) {
+            sb.append(child.accept(this));
+        }
+        return sb.toString();
     }
 
     @Override
     public String visitMain(MainNode n) {
         String start = ".method public static main([Ljava/lang/String;)V\n"
-                + "    .limit stack 10\n"
-                + "    .limit locals 10\n";
+                + "    .limit stack 50\n"
+                + "    .limit locals 50\n"
+                + "    new java/util/Scanner\n"
+                + "    dup\n"
+                + "    getstatic java/lang/System/in Ljava/io/InputStream;\n"
+                + "    invokespecial java/util/Scanner/<init>(Ljava/io/InputStream;)V\n"
+                + "    putstatic " + this.className + "/scanner Ljava/util/Scanner;\n";
+
         Node blockNode = n.getChildren().getFirst();
         String body = blockNode.accept(this);
+
+        // If the body doesn't end in a return, this ensures the .class is valid
+        String safety = "    return\n";
         String end = ".end method\n";
-        return start + body + end;
+
+        return start + body + safety + end;
     }
 
     @Override
@@ -144,6 +163,35 @@ public class JasminVisitor implements Visitor<String> {
             };
 
             sb.append("    invokevirtual java/io/PrintStream/println").append(sig).append("\n");
+            return sb.toString();
+        }
+        if ("snitch".equals(n.callee)) {
+            StringBuilder sb = new StringBuilder();
+            IdentifierNode idNode = (IdentifierNode) n.getChildren().getFirst();
+            int index = varMap.get(idNode.name);
+            String type = idNode.getType();
+
+            sb.append("    getstatic ").append(this.className).append("/scanner Ljava/util/Scanner;\n");
+
+            if ("MARK".equals(type)) {
+                // 1. Get next token as String
+                sb.append("    invokevirtual java/util/Scanner/next()Ljava/lang/String;\n");
+                // 2. Get char at index 0
+                sb.append("    iconst_0\n");
+                sb.append("    invokevirtual java/lang/String/charAt(I)C\n");
+                // 3. Store as an integer (chars are i-prefixed in JVM)
+                sb.append("    istore ").append(index).append("\n");
+            } else {
+                String method = switch (type) {
+                    case "SLICE"     -> "nextFloat()F";
+                    case "ASSOCIATE" -> "next()Ljava/lang/String;";
+                    case "DOSSIER"   -> "nextBoolean()Z";
+                    default          -> "nextInt()I"; // CASH
+                };
+                String prefix = getInstrPrefix(type);
+                sb.append("    invokevirtual java/util/Scanner/").append(method).append("\n");
+                sb.append("    ").append(prefix).append("store ").append(index).append("\n");
+            }
             return sb.toString();
         }
         return "";
