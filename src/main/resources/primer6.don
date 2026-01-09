@@ -1,5 +1,12 @@
 theSitDown() {
-    0.43024 + 324.0234;
+    cash t = 115;
+    slice g = 230.4;
+    g = (slice) t + 493.4;
+    associate a = $$Silivio Dante$$;
+    associate b = $$Paulie “Walnuts” Gualtieri$$;
+    associate c = $$Tony Soprano$$;
+
+    spill(c);
 
     sleepWithTheFishes;
 }

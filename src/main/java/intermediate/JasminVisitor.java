@@ -2,18 +2,29 @@ package intermediate;
 
 import parser.*;
 
-public class JasminVisitor implements Visitor<String> {
+import java.util.HashMap;
+import java.util.Map;
 
+public class JasminVisitor implements Visitor<String> {
+    private final Map<String, Integer> varMap = new HashMap<>();
+    private int nextIndex = 1;
     private String className;
     public JasminVisitor(String className) {
         this.className = className;
+    }
+
+    private String getInstrPrefix(String type) {
+        return switch (type) {
+            case "SLICE"     -> "f"; // Floats
+            case "ASSOCIATE" -> "a"; // Objects (Strings)
+            default          -> "i"; // CASH, MARK, DOSSIER (all treated as ints)
+        };
     }
 
     @Override
     public String visitProgram(ProgramNode n) {
         String header = ".class public " + this.className + "\n"
                 + ".super java/lang/Object\n\n";
-
         String constructor = ".method public <init>()V\n"
                 + "    aload_0\n"
                 + "    invokespecial java/lang/Object/<init>()V\n"
@@ -28,12 +39,9 @@ public class JasminVisitor implements Visitor<String> {
         String start = ".method public static main([Ljava/lang/String;)V\n"
                 + "    .limit stack 10\n"
                 + "    .limit locals 10\n";
-
         Node blockNode = n.getChildren().getFirst();
         String body = blockNode.accept(this);
-
         String end = ".end method\n";
-
         return start + body + end;
     }
 
@@ -53,6 +61,15 @@ public class JasminVisitor implements Visitor<String> {
 
     @Override
     public String visitVarDecl(VarDeclNode n) {
+        int index = nextIndex++;
+        varMap.put(n.name, index);
+        if (!n.getChildren().isEmpty()) {
+            Node initExpr = n.getChildren().getFirst();
+            String initCode = initExpr.accept(this);
+
+            String prefix = getInstrPrefix(initExpr.getType());
+            return initCode + "    " + prefix + "store " + index + "\n";
+        }
         return "";
     }
 
@@ -72,7 +89,6 @@ public class JasminVisitor implements Visitor<String> {
         if (!n.getChildren().isEmpty()) {
             expr = n.getChildren().get(0).accept(this);
         }
-
         return expr + "    return\n";
     }
 
@@ -84,17 +100,45 @@ public class JasminVisitor implements Visitor<String> {
 
     @Override
     public String visitAssign(AssignNode n) {
-        return "";
+        Node rhs = n.getChildren().getFirst();
+        String valueCode = rhs.accept(this);
+        IdentifierNode idNode = (IdentifierNode) n.getChildren().getFirst();
+        int index = varMap.get(idNode.name);
+        String prefix = getInstrPrefix(rhs.getType());
+        return valueCode +
+                "    dup\n" +
+                "    " + prefix + "store " + index + "\n";
     }
 
     @Override
     public String visitCall(CallNode n) {
+        if ("spill".equals(n.callee)) {
+            StringBuilder sb = new StringBuilder();
+            // Since it only accepts one variable, it's the first child
+            Node argument = n.getChildren().getFirst();
+
+            sb.append("    getstatic java/lang/System/out Ljava/io/PrintStream;\n");
+            sb.append(argument.accept(this));
+
+            String sig = switch (argument.getType()) {
+                case "SLICE"     -> "(F)V";
+                case "ASSOCIATE" -> "(Ljava/lang/String;)V";
+                case "MARK"      -> "(C)V";
+                case "DOSSIER"   -> "(Z)V";
+                default          -> "(I)V"; // CASH
+            };
+
+            sb.append("    invokevirtual java/io/PrintStream/println").append(sig).append("\n");
+            return sb.toString();
+        }
         return "";
     }
 
     @Override
     public String visitIdentifier(IdentifierNode n) {
-        return "";
+        Integer index = varMap.get(n.name);
+        String prefix = getInstrPrefix(n.getType());
+        return "    " + prefix + "load " + index + "\n";
     }
 
     @Override

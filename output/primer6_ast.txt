@@ -1,8 +1,23 @@
 ProgramNode#1
-  MainNode#8 [VOID]
+  MainNode#24 [VOID]
     BlockNode#2 [VOID]
-      ExprStmtNode#6 [VOID]
-        BinOpNode#4 [SLICE](+)
-          LiteralNode#3 [SLICE](0.43024)
-          LiteralNode#5 [SLICE](324.0234)
-      ReturnNode#7 [VOID](sleepWithTheFishes)
+      VarDeclNode#3 [VOID](cash t)
+        LiteralNode#4 [CASH](115)
+      VarDeclNode#5 [VOID](slice g)
+        LiteralNode#6 [SLICE](230.4)
+      ExprStmtNode#13 [VOID]
+        AssignNode#12 [SLICE]
+          IdentifierNode#7 [SLICE](g)
+          BinOpNode#10 [SLICE](+)
+            CastNode#9 [SLICE](slice)
+              IdentifierNode#8 [CASH](t)
+            LiteralNode#11 [SLICE](493.4)
+      VarDeclNode#14 [VOID](associate a)
+        LiteralNode#15 [ASSOCIATE]($$Silivio Dante$$)
+      VarDeclNode#16 [VOID](associate b)
+        LiteralNode#17 [ASSOCIATE]($$Paulie “Walnuts” Gualtieri$$)
+      VarDeclNode#18 [VOID](associate c)
+        LiteralNode#19 [ASSOCIATE]($$Tony Soprano$$)
+      CallNode#22 [VOID](spill)
+        IdentifierNode#21 [ASSOCIATE](c)
+      ReturnNode#23 [VOID](sleepWithTheFishes)

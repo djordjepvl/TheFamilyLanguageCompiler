@@ -4,40 +4,142 @@
   "children": [
     {
       "type": "MainNode",
-      "id": 8,
+      "id": 24,
       "children": [
         {
           "type": "BlockNode",
           "id": 2,
           "children": [
             {
-              "type": "ExprStmtNode",
-              "id": 6,
+              "type": "VarDeclNode",
+              "id": 3,
+              "type": "cash",
+              "name": "t",
               "children": [
                 {
-                  "type": "BinOpNode",
+                  "type": "LiteralNode",
                   "id": 4,
-                  "op": "+",
+                  "value": "115",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "VarDeclNode",
+              "id": 5,
+              "type": "slice",
+              "name": "g",
+              "children": [
+                {
+                  "type": "LiteralNode",
+                  "id": 6,
+                  "value": "230.4",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "ExprStmtNode",
+              "id": 13,
+              "children": [
+                {
+                  "type": "AssignNode",
+                  "id": 12,
                   "children": [
                     {
-                      "type": "LiteralNode",
-                      "id": 3,
-                      "value": "0.43024",
+                      "type": "IdentifierNode",
+                      "id": 7,
+                      "name": "g",
                       "children": []
                     },
                     {
-                      "type": "LiteralNode",
-                      "id": 5,
-                      "value": "324.0234",
-                      "children": []
+                      "type": "BinOpNode",
+                      "id": 10,
+                      "op": "+",
+                      "children": [
+                        {
+                          "type": "CastNode",
+                          "id": 9,
+                          "typeName": "slice",
+                          "children": [
+                            {
+                              "type": "IdentifierNode",
+                              "id": 8,
+                              "name": "t",
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "type": "LiteralNode",
+                          "id": 11,
+                          "value": "493.4",
+                          "children": []
+                        }
+                      ]
                     }
                   ]
                 }
               ]
             },
             {
+              "type": "VarDeclNode",
+              "id": 14,
+              "type": "associate",
+              "name": "a",
+              "children": [
+                {
+                  "type": "LiteralNode",
+                  "id": 15,
+                  "value": "$$Silivio Dante$$",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "VarDeclNode",
+              "id": 16,
+              "type": "associate",
+              "name": "b",
+              "children": [
+                {
+                  "type": "LiteralNode",
+                  "id": 17,
+                  "value": "$$Paulie “Walnuts” Gualtieri$$",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "VarDeclNode",
+              "id": 18,
+              "type": "associate",
+              "name": "c",
+              "children": [
+                {
+                  "type": "LiteralNode",
+                  "id": 19,
+                  "value": "$$Tony Soprano$$",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "CallNode",
+              "id": 22,
+              "callee": "spill",
+              "children": [
+                {
+                  "type": "IdentifierNode",
+                  "id": 21,
+                  "name": "c",
+                  "children": []
+                }
+              ]
+            },
+            {
               "type": "ReturnNode",
-              "id": 7,
+              "id": 23,
               "kind": "sleepWithTheFishes",
               "children": []
             }

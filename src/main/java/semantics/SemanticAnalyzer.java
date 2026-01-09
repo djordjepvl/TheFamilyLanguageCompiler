@@ -189,28 +189,13 @@ public class SemanticAnalyzer {
         if (a.target == null) error("Invalid assignment target", a);
 
         TypeRef rhs = analyzeNode(a.value);
+        TypeRef lhs = analyzeNode(a.target);
 
-        if (a.target instanceof IdentifierNode id) {
-            Symbol s = currentScope.resolve(id.name);
-            if (s == null) error("Variable not declared: " + id.name, id);
-            if (!assignCompatible(s.type, rhs)) error("Cannot assign " + rhs + " to " + s.type, a);
-            id.symbol = s;
-            return s.type;
+        if (!assignCompatible(lhs, rhs)) {
+            error("Cannot assign " + rhs + " to " + lhs, a);
         }
 
-        if (a.target instanceof IndexNode idx) {
-            TypeRef lhs = analyzeIndex(idx);
-            TypeRef s = analyzeNode(a.value);
-
-            if (lhs.base == Type.CASH && s.base == Type.SLICE)
-                error("Cannot assign slice to cash", a);
-            if (!assignCompatible(lhs, rhs))
-                error("Cannot assign " + s + " to " + lhs, a);
-            return lhs;
-        }
-
-        error("Invalid assignment target", a);
-        return TypeRef.of(Type.ERROR);
+        return lhs;
     }
 
     private TypeRef analyzeIdentifier(IdentifierNode i) {

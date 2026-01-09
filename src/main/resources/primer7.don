@@ -5,10 +5,29 @@ organizeHit isPositive(cash x) intel dossier {
     planB { sendWord whacked; }
 }
 
+organizeHit eliminate(associate target) intel dossier {
+    spill($$You sure about this? y/n$$);
+    dossier response;
+    snitch(response);
+    check (response == alive) {
+        spill($$You fucking useless piece of shit motherfucker$$);
+        sendWord whacked;
+    }
+    spill($$You better leave town for a while$$);
+    sendWord alive;
+}
+
 theSitDown() {
-    cash m = mul(12, 5);       // 60
+    associate earner = "Ralph Cifaretto";
+    cash kick_up;
+    snitch(kick_up);
+    cash m = mul(kick_up, 5) - 200 ;
     dossier ok = isPositive(m);
     check (ok) { spill($$We’re back in business!$$); }
-    spill(m);
+    planB {
+        check (eliminate(earner)) { spill("He was a Hoah"); }
+        planB { spill("Shoulda whacked him") }
+    }
     sleepWithTheFishes;
 }
+
