@@ -59,7 +59,6 @@ public class JasminVisitor implements Visitor<String> {
         Node blockNode = n.getChildren().getFirst();
         String body = blockNode.accept(this);
 
-        // If the body doesn't end in a return, this ensures the .class is valid
         String safety = "    return\n";
         String end = ".end method\n";
 
@@ -145,11 +144,10 @@ public class JasminVisitor implements Visitor<String> {
 
     @Override
     public String visitAssign(AssignNode n) {
-        // Usually: index 0 is the variable, index 1 is the value expression
         Node lhs = n.getChildren().get(0);
         Node rhs = n.getChildren().get(1);
 
-        String valueCode = rhs.accept(this); // This will now correctly trigger visitCast
+        String valueCode = rhs.accept(this);
 
         IdentifierNode idNode = (IdentifierNode) lhs;
         int index = varMap.get(idNode.name);
@@ -164,7 +162,6 @@ public class JasminVisitor implements Visitor<String> {
     public String visitCall(CallNode n) {
         if ("spill".equals(n.callee)) {
             StringBuilder sb = new StringBuilder();
-            // Since it only accepts one variable, it's the first child
             Node argument = n.getChildren().getFirst();
 
             sb.append("    getstatic java/lang/System/out Ljava/io/PrintStream;\n");
@@ -175,7 +172,7 @@ public class JasminVisitor implements Visitor<String> {
                 case "ASSOCIATE" -> "(Ljava/lang/String;)V";
                 case "MARK"      -> "(C)V";
                 case "DOSSIER"   -> "(Z)V";
-                default          -> "(I)V"; // CASH
+                default          -> "(I)V";
             };
 
             sb.append("    invokevirtual java/io/PrintStream/println").append(sig).append("\n");
@@ -190,19 +187,16 @@ public class JasminVisitor implements Visitor<String> {
             sb.append("    getstatic ").append(this.className).append("/scanner Ljava/util/Scanner;\n");
 
             if ("MARK".equals(type)) {
-                // 1. Get next token as String
                 sb.append("    invokevirtual java/util/Scanner/next()Ljava/lang/String;\n");
-                // 2. Get char at index 0
                 sb.append("    iconst_0\n");
                 sb.append("    invokevirtual java/lang/String/charAt(I)C\n");
-                // 3. Store as an integer (chars are i-prefixed in JVM)
                 sb.append("    istore ").append(index).append("\n");
             } else {
                 String method = switch (type) {
                     case "SLICE"     -> "nextFloat()F";
                     case "ASSOCIATE" -> "next()Ljava/lang/String;";
                     case "DOSSIER"   -> "nextBoolean()Z";
-                    default          -> "nextInt()I"; // CASH
+                    default          -> "nextInt()I";
                 };
                 String prefix = getInstrPrefix(type);
                 sb.append("    invokevirtual java/util/Scanner/").append(method).append("\n");
@@ -249,7 +243,28 @@ public class JasminVisitor implements Visitor<String> {
 
     @Override
     public String visitUnary(UnaryOpNode n) {
-        return "";
+        String exprCode = n.getChildren().getFirst().accept(this);
+        String type = n.getChildren().getFirst().getType();
+
+        if ("!".equals(n.op)) {
+            String trueLabel = "not_true_" + labelCount++;
+            String endLabel = "not_end_" + labelCount++;
+
+            return exprCode +
+                    "    ifne " + trueLabel + "\n" +
+                    "    iconst_1\n" +
+                    "    goto " + endLabel + "\n" +
+                    trueLabel + ":\n" +
+                    "    iconst_0\n" +
+                    endLabel + ":\n";
+        }
+
+        if ("-".equals(n.op)) {
+            String prefix = "SLICE".equals(type) ? "f" : "i";
+            return exprCode + "    " + prefix + "neg\n";
+        }
+
+        return exprCode;
     }
 
     @Override

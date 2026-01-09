@@ -1,61 +1,62 @@
 ProgramNode#1
-  MainNode#70 [VOID]
+  MainNode#71 [VOID]
     BlockNode#2 [VOID]
       VarDeclNode#3 [VOID](cash t)
-        LiteralNode#4 [CASH](115)
-      VarDeclNode#5 [VOID](slice g)
-        BinOpNode#8 [SLICE](+)
-          CastNode#7 [SLICE](slice)
-            IdentifierNode#6 [CASH](t)
-          LiteralNode#9 [SLICE](493.4)
-      ExprStmtNode#14 [VOID]
-        AssignNode#13 [CASH]
-          IdentifierNode#10 [CASH](t)
-          CastNode#12 [CASH](cash)
-            IdentifierNode#11 [SLICE](g)
-      VarDeclNode#15 [VOID](associate a)
-        LiteralNode#16 [ASSOCIATE]($$Silivio Dante$$)
-      VarDeclNode#17 [VOID](dossier m)
-        LiteralNode#18 [DOSSIER](whacked)
-      VarDeclNode#19 [VOID](associate b)
-        LiteralNode#20 [ASSOCIATE]($$Paulie “Walnuts” Gualtieri$$)
-      VarDeclNode#21 [VOID](associate c)
-        LiteralNode#22 [ASSOCIATE]($$Tony Soprano$$)
-      CallNode#25 [VOID](spill)
-        IdentifierNode#24 [CASH](t)
-      IfNode#28 [VOID]
-        IdentifierNode#27 [DOSSIER](m)
-        BlockNode#29 [VOID]
-          CallNode#32 [VOID](spill)
-            IdentifierNode#31 [ASSOCIATE](b)
-        IfNode#37 [VOID]
-          BinOpNode#35 [DOSSIER](>=)
-            IdentifierNode#34 [CASH](t)
-            LiteralNode#36 [CASH](115)
-          BlockNode#38 [VOID]
-            CallNode#40 [VOID](spill)
-              LiteralNode#39 [ASSOCIATE]($$Nothin$$)
-          BlockNode#41 [VOID]
-            CallNode#44 [VOID](spill)
-              IdentifierNode#43 [ASSOCIATE](c)
-      ForNode#68 [VOID]
-        VarDeclNode#45 [VOID](cash i)
-          LiteralNode#46 [CASH](0)
-        BinOpNode#49 [DOSSIER](<)
-          IdentifierNode#48 [CASH](i)
-          LiteralNode#50 [CASH](4)
-        AssignNode#56 [CASH]
-          IdentifierNode#51 [CASH](i)
-          BinOpNode#54 [CASH](+)
-            IdentifierNode#53 [CASH](i)
-            LiteralNode#55 [CASH](1)
-        BlockNode#57 [VOID]
-          VarDeclNode#58 [VOID](dossier even)
-            BinOpNode#63 [DOSSIER](==)
-              BinOpNode#61 [CASH](%)
-                IdentifierNode#60 [CASH](i)
-                LiteralNode#62 [CASH](2)
-              LiteralNode#64 [CASH](0)
-          CallNode#67 [VOID](spill)
-            IdentifierNode#66 [CASH](i)
-      ReturnNode#69 [VOID](sleepWithTheFishes)
+      CallNode#5 [VOID](snitch)
+        IdentifierNode#4 [CASH](t)
+      VarDeclNode#6 [VOID](slice g)
+        BinOpNode#9 [SLICE](+)
+          CastNode#8 [SLICE](slice)
+            IdentifierNode#7 [CASH](t)
+          LiteralNode#10 [SLICE](493.4)
+      ExprStmtNode#15 [VOID]
+        AssignNode#14 [CASH]
+          IdentifierNode#11 [CASH](t)
+          CastNode#13 [CASH](cash)
+            IdentifierNode#12 [SLICE](g)
+      VarDeclNode#16 [VOID](associate a)
+        LiteralNode#17 [ASSOCIATE]($$Silivio Dante$$)
+      VarDeclNode#18 [VOID](dossier m)
+        LiteralNode#19 [DOSSIER](whacked)
+      VarDeclNode#20 [VOID](associate b)
+        LiteralNode#21 [ASSOCIATE]($$Paulie “Walnuts” Gualtieri$$)
+      VarDeclNode#22 [VOID](associate c)
+        LiteralNode#23 [ASSOCIATE]($$Tony Soprano$$)
+      CallNode#26 [VOID](spill)
+        IdentifierNode#25 [CASH](t)
+      IfNode#29 [VOID]
+        IdentifierNode#28 [DOSSIER](m)
+        BlockNode#30 [VOID]
+          CallNode#33 [VOID](spill)
+            IdentifierNode#32 [ASSOCIATE](b)
+        IfNode#38 [VOID]
+          BinOpNode#36 [DOSSIER](>=)
+            IdentifierNode#35 [CASH](t)
+            LiteralNode#37 [CASH](115)
+          BlockNode#39 [VOID]
+            CallNode#41 [VOID](spill)
+              LiteralNode#40 [ASSOCIATE]($$Nothin$$)
+          BlockNode#42 [VOID]
+            CallNode#45 [VOID](spill)
+              IdentifierNode#44 [ASSOCIATE](c)
+      ForNode#69 [VOID]
+        VarDeclNode#46 [VOID](cash i)
+          LiteralNode#47 [CASH](0)
+        BinOpNode#50 [DOSSIER](<)
+          IdentifierNode#49 [CASH](i)
+          LiteralNode#51 [CASH](4)
+        AssignNode#57 [CASH]
+          IdentifierNode#52 [CASH](i)
+          BinOpNode#55 [CASH](+)
+            IdentifierNode#54 [CASH](i)
+            LiteralNode#56 [CASH](1)
+        BlockNode#58 [VOID]
+          VarDeclNode#59 [VOID](dossier even)
+            BinOpNode#64 [DOSSIER](==)
+              BinOpNode#62 [CASH](%)
+                IdentifierNode#61 [CASH](i)
+                LiteralNode#63 [CASH](2)
+              LiteralNode#65 [CASH](0)
+          CallNode#68 [VOID](spill)
+            IdentifierNode#67 [DOSSIER](even)
+      ReturnNode#70 [VOID](sleepWithTheFishes)

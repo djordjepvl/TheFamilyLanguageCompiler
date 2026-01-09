@@ -75,6 +75,10 @@ public class Application {
         String jasminCode = ast.accept(jasminVisitor);
         Path jasminFilePath = Files.writeString(outputDir.resolve(baseName + ".j"), jasminCode);
 
+        //Path jasminFilePath = Path.of("output/primer6 correct.j");
+        //String jasminCode = Files.readString(jasminFilePath);
+
+
         ProcessBuilder pbAssemble = new ProcessBuilder("java", "-jar", "lib/jasmin.jar", "-d", "output", jasminFilePath.toString());
         pbAssemble.inheritIO();
         Process assemble = pbAssemble.start();

@@ -1,5 +1,6 @@
 theSitDown() {
-    cash t = 115;
+    cash t;
+    snitch(t);
     slice g = (slice) t + 493.4;
     t = (cash) g;
     associate a = $$Silivio Dante$$;

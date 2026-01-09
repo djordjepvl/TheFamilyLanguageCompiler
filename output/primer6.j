@@ -16,7 +16,8 @@
     getstatic java/lang/System/in Ljava/io/InputStream;
     invokespecial java/util/Scanner/<init>(Ljava/io/InputStream;)V
     putstatic primer6/scanner Ljava/util/Scanner;
-    ldc 115
+    getstatic primer6/scanner Ljava/util/Scanner;
+    invokevirtual java/util/Scanner/nextInt()I
     istore 1
     iload 1
     i2f
@@ -89,8 +90,8 @@ iconst_1
 cmp_end_11:
     istore 8
     getstatic java/lang/System/out Ljava/io/PrintStream;
-    iload 7
-    invokevirtual java/io/PrintStream/println(I)V
+    iload 8
+    invokevirtual java/io/PrintStream/println(Z)V
     iload 7
     ldc 1
     iadd

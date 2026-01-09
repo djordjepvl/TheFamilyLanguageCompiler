@@ -157,7 +157,10 @@ public class SemanticAnalyzer {
 
     private TypeRef analyzeArraySize(ArraySizeNode a) {
         TypeRef sz = analyzeNode(a.size);
-        if (sz.base != Type.CASH) error("Array size must be cash");
+        if (sz.base != Type.CASH) error("Array size must be cash", a);
+
+        a.setType(TypeRef.of(Type.CASH).toString());
+
         return TypeRef.of(Type.CASH);
     }
 

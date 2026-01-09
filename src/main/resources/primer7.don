@@ -10,7 +10,7 @@ organizeHit eliminate(associate target) intel dossier {
     dossier response;
     snitch(response);
     check (response == alive) {
-        spill($$You fucking useless piece of shit motherfucker$$);
+        spill($$You useless stoonad$$);
         sendWord whacked;
     }
     spill($$You better leave town for a while$$);
@@ -18,15 +18,15 @@ organizeHit eliminate(associate target) intel dossier {
 }
 
 theSitDown() {
-    associate earner = "Ralph Cifaretto";
+    associate earner = $$Ralph Cifaretto$$;
     cash kick_up;
     snitch(kick_up);
     cash m = mul(kick_up, 5) - 200 ;
     dossier ok = isPositive(m);
     check (ok) { spill($$We’re back in business!$$); }
     planB {
-        check (eliminate(earner)) { spill("He was a Hoah"); }
-        planB { spill("Shoulda whacked him") }
+        check (eliminate(earner)) { spill($$He was a Hoah$$); }
+        planB { spill($$Shoulda whacked him$$); }
     }
     sleepWithTheFishes;
 }
